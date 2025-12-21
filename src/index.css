@@ -1,0 +1,81 @@
+/* src/index.css - Global reset and base styles */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  font-family: 'Manrope', 'Inter', system-ui, -apple-system, sans-serif;
+  overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  /* IMPORTANT: Remove any max-width, padding, or centering that was in App.css */
+}
+
+/* Smooth scrolling for the entire page */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Remove default link underline */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Reset headings */
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  padding: 0;
+}
+
+/* Reset paragraphs */
+p {
+  margin: 0;
+  padding: 0;
+}
+
+/* Reset lists */
+ul, ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Reset buttons and inputs */
+button,
+input,
+textarea {
+  font-family: inherit;
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:focus-visible {
+  outline: 2px solid #4BAF47;
+  outline-offset: 2px;
+}
+
+/* Remove default image spacing */
+img {
+  display: block;
+  max-width: 100%;
+}
