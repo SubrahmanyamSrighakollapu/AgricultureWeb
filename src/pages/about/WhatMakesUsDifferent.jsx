@@ -38,12 +38,7 @@ const WhatMakesUsDifferent = () => {
 
   return (
     <section className="w-100 position-relative mt-5 bg-white text-center py-5" style={{ padding: '5rem 2rem' }}>
-      <h2 className="fw-semibold m-0 mb-5" style={{
-        fontFamily: 'Manrope, sans-serif',
-        fontSize: '2.5rem',
-        lineHeight: '1.9rem',
-        color: '#1F1E17'
-      }}>
+      <h2 className="mb-5">
         WHAT MAKES US DIFFERENT
       </h2>
 
@@ -54,44 +49,26 @@ const WhatMakesUsDifferent = () => {
         {features.map((feature, index) => (
           <div key={index} className="d-flex flex-column align-items-center rounded p-4 different-card" style={{
             width: '15.5rem',
-            height: '24.6875rem',
+            height: 'auto',
             backgroundColor: '#EFFFF0',
             borderRadius: '0.5rem',
             padding: '2.5rem 1.5rem',
             boxSizing: 'border-box'
           }}>
-            <div className="rounded-circle d-flex align-items-center justify-content-center mb-4" style={{
-              width: '3rem',
-              height: '3rem',
-              backgroundColor: '#4BAF4747'
-            }}>
+            <div className="icon-bg mb-4">
               <img 
                 src={feature.icon} 
                 alt={feature.title} 
-                className="rounded-circle"
-                style={{
-                  width: '1.75rem',
-                  height: '3rem',
-                  objectFit: 'contain'
-                }}
+                className="icon-img"
+                
               />
             </div>
 
-            <h3 className="fw-semibold m-0 mb-3" style={{
-              fontFamily: 'Manrope, sans-serif',
-              fontSize: '1.375rem',
-              lineHeight: '1.625rem',
-              color: '#1F1E17'
-            }}>
+            <h3 className="card-title mb-3">
               {feature.title}
             </h3>
 
-            <p className="fw-light m-0 text-start mt-3 flex-grow-1" style={{
-              fontFamily: 'Manrope, sans-serif',
-              fontSize: '1.125rem',
-              lineHeight: '2.25rem',
-              color: '#878680'
-            }}>
+            <p className="mt-3" style={{color:"#565656"}}>
               {feature.text}
             </p>
           </div>
@@ -119,10 +96,6 @@ const WhatMakesUsDifferent = () => {
             height: auto !important;
             padding: 2rem 1.5rem !important;
           }
-          h2 {
-            font-size: 2.25rem !important;
-            line-height: 3.2rem !important;
-          }
         }
 
         @media (max-width: 768px) {
@@ -131,17 +104,6 @@ const WhatMakesUsDifferent = () => {
           }
           .different-card {
             padding: 2rem 1rem !important;
-          }
-          h2 {
-            font-size: 2rem !important;
-            line-height: 2.8rem !important;
-          }
-          h3 {
-            font-size: 1.25rem !important;
-          }
-          .different-card p {
-            font-size: 1rem !important;
-            line-height: 2rem !important;
           }
         }
 
@@ -153,18 +115,6 @@ const WhatMakesUsDifferent = () => {
             width: 100% !important;
             max-width: 18rem !important;
             height: auto !important;
-          }
-          h2 {
-            font-size: 1.75rem !important;
-            line-height: 2.4rem !important;
-          }
-          .rounded-circle {
-            width: 3rem !important;
-            height: 3rem !important;
-          }
-          .rounded-circle img {
-            width: 1.5rem !important;
-            height: 1.5rem !important;
           }
         }
       `}</style>

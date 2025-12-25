@@ -39,28 +39,11 @@ const WhatWeOffer = () => {
             <div className="container">
                 <div className="mx-auto" style={{ maxWidth: '80rem' }}>
                     {/* Header Section */}
-                    <div className="text-center mb-4">
-                        <p 
-                            className="mb-1" 
-                            style={{
-                                fontFamily: 'Inter, sans-serif',
-                                fontWeight: 500,
-                                fontSize: '1.5rem',
-                                color: '#49A760',
-                                margin: 0
-                            }}
-                        >
+                    <div className='section-header'>
+                        <p className="subtitle mb-1">
                             Our Services
                         </p>
-                        <h2 
-                            className="m-0" 
-                            style={{
-                                fontFamily: 'Manrope, sans-serif',
-                                fontWeight: 600,
-                                fontSize: 'clamp(1.75rem, 4vw, 2.5rem)',
-                                lineHeight: '3rem'
-                            }}
-                        >
+                        <h2>
                             What We Offer
                         </h2>
                     </div>
@@ -73,7 +56,7 @@ const WhatWeOffer = () => {
                                 className="card border-0 shadow position-relative d-flex flex-column overflow-visible m-3"
                                 style={{
                                     width: '28.5rem',
-                                    height: '30rem',
+                                    height: '34rem',
                                     backgroundColor: '#FFFFFF',
                                     borderRadius: '0.625rem',
                                     boxShadow: '0 0.25rem 1.5rem rgba(0, 0, 0, 0.1)',
@@ -97,12 +80,10 @@ const WhatWeOffer = () => {
                                     <img 
                                         src={card.icon} 
                                         alt={`${card.title} Icon`} 
-                                        className="position-absolute"
+                                        className="icon-img-big position-absolute"
                                         style={{
                                             bottom: '-2rem',
                                             right: '1.5rem',
-                                            width: '4rem',
-                                            height: '4rem',
                                             objectFit: 'contain',
                                             zIndex: 2
                                         }}
@@ -115,27 +96,10 @@ const WhatWeOffer = () => {
                                         gap: '1rem'
                                     }}
                                 >
-                                    <h3 
-                                        className="card-title m-0"
-                                        style={{
-                                            fontFamily: 'Manrope, sans-serif',
-                                            fontWeight: 600,
-                                            fontSize: '1.375rem',
-                                            color: '#1F1E17'
-                                        }}
-                                    >
+                                    <h3 className="card-title">
                                         {card.title}
                                     </h3>
-                                    <p 
-                                        className="card-text mb-0"
-                                        style={{
-                                            fontFamily: 'Manrope, sans-serif',
-                                            fontWeight: 500,
-                                            fontSize: '1rem',
-                                            lineHeight: '1.8rem',
-                                            color: '#565656'
-                                        }}
-                                    >
+                                    <p style={{color:'#565656'}}>
                                         {card.text}
                                     </p>
                                 </div>

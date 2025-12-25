@@ -5,14 +5,38 @@ import img3 from '../../assets/services/Img3.jpg';
 import img4 from '../../assets/services/Img4.jpg';
 
 const Education = () => {
+  const educationCards = [
+    {
+      img: img2,
+      alt: "Urban Agri Academy Access",
+      title: "Urban Agri Academy Access",
+      description: "Comprehensive courses on sustainable urban farming.",
+      linkText: "Learn more →"
+    },
+    {
+      img: img3,
+      alt: "Learning Support",
+      title: "Learning Support",
+      description: "On-demand video tutorials and expert webinars.",
+      linkText: "View Library →"
+    },
+    {
+      img: img4,
+      alt: "Organic Farming Practices",
+      title: "Organic Farming Practices",
+      description: "Certification guides and soil health management.",
+      linkText: "Start Course →"
+    }
+  ];
+
   return (
     <section className="py-5 py-lg-7">
       <div className="container">
         {/* Title and Paragraph Section */}
-        <div className="row justify-content-center text-center align-items-center mb-5 mb-lg-7">
-          <div className="col-lg-10 col-xl-8">
-            <h2 className="mb-3">EDUCATION THAT EMPOWERS</h2>
-            <p className="lead">
+        <div className="row justify-content-center text-center align-items-center">
+          <div className="section-header">
+            <h2 className="mb-1">EDUCATION THAT EMPOWERS</h2>
+            <p>
               Bridging the knowledge gap with modern farming techniques.
             </p>
           </div>
@@ -20,75 +44,29 @@ const Education = () => {
 
         {/* 3 Cards Row */}
         <div className="row g-4 g-xl-5 justify-content-center">
-          {/* Card 1 */}
-          <div className="col-md-6 col-lg-4">
-            <div className="education-card h-100 d-flex flex-column">
-              <img src={img2} alt="Urban Agri Academy Access" className="card-img-top" />
-              <div className="p-4 flex-grow-1 d-flex flex-column">
-                <h3 className="card-title">Urban Agri Academy Access</h3>
-                <p className="card-text flex-grow-1">
-                  Comprehensive courses on sustainable urban farming.
-                </p>
-                <a href="#" className="mt-auto learn-more-link">
-                  Learn more →
-                </a>
+          {educationCards.map((card, index) => (
+            <div key={index} className="col-md-6 col-lg-4">
+              <div className="education-card h-100 d-flex flex-column">
+                <img src={card.img} alt={card.alt} className="card-img-top" />
+                <div className="p-4 flex-grow-1 d-flex flex-column">
+                  <h3 className="card-title mb-2">{card.title}</h3>
+                  <p style={{color:'#565656'}}>
+                    {card.description}
+                  </p>
+                  <a href="#" className="mt-auto learn-more-link">
+                    {card.linkText}
+                  </a>
+                </div>
               </div>
             </div>
-          </div>
-
-          {/* Card 2 */}
-          <div className="col-md-6 col-lg-4">
-            <div className="education-card h-100 d-flex flex-column">
-              <img src={img3} alt="Learning Support" className="card-img-top" />
-              <div className="p-4 flex-grow-1 d-flex flex-column">
-                <h3 className="card-title">Learning Support</h3>
-                <p className="card-text flex-grow-1">
-                  On-demand video tutorials and expert webinars.
-                </p>
-                <a href="#" className="mt-auto learn-more-link">
-                  View Library →
-                </a>
-              </div>
-            </div>
-          </div>
-
-          {/* Card 3 */}
-          <div className="col-md-6 col-lg-4">
-            <div className="education-card h-100 d-flex flex-column">
-              <img src={img4} alt="Organic Farming Practices" className="card-img-top" />
-              <div className="p-4 flex-grow-1 d-flex flex-column">
-                <h3 className="card-title">Organic Farming Practices</h3>
-                <p className="card-text flex-grow-1">
-                  Certification guides and soil health management.
-                </p>
-                <a href="#" className="mt-auto learn-more-link">
-                  Start Course →
-                </a>
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
 
       
       <style jsx>{`
-        /* Title */
-        h2 {
-          font-family: 'Manrope', sans-serif;
-          font-weight: 600;
-          font-size: clamp(1.75rem, 4vw, 2.5rem);
-          line-height: 30px;
-          color: #000000;
-        }
-
-        /* Main paragraph */
-        .lead {
-          font-family: 'Manrope', sans-serif;
-          font-weight: 500;
-          font-size: clamp(1rem, 2vw, 1.25rem);
-          line-height: 30px;
-          color: #565656;
-        }
+       
+        
 
         /* Card container */
         .education-card {
@@ -110,26 +88,6 @@ const Education = () => {
           margin: 24px auto 0;
           display: block;
           background-color: #D9D9D9;
-        }
-
-        /* Card title */
-        .card-title {
-          font-family: 'Manrope', sans-serif;
-          font-weight: 600;
-          font-size: 1.325rem;
-          line-height: 30px;
-          color: #000000;
-          margin-bottom: 0.5rem;
-        }
-
-        /* Card text */
-        .card-text {
-          font-family: 'Manrope', sans-serif;
-          font-weight: 400;
-          font-size: clamp(1rem, 2vw, 1.1rem);
-          line-height: 30px;
-          color: #565656;
-          margin-bottom: 1rem;
         }
 
         /* Learn more link/button */

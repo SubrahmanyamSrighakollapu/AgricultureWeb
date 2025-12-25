@@ -22,33 +22,12 @@ const OfferCard = () => {
           }}
         >
           {/* Left: Text (title, paragraph, button) */}
-          <div className="d-flex flex-column justify-content-center" style={{ width: '45%', textAlign: 'left' }}>
-            <h3
-              style={{
-                fontFamily: 'Inter, sans-serif',
-                fontWeight: 700,
-                fontSize: '3rem',
-                lineHeight: '4.25rem',
-                color: '#000000',
-                margin: 0,
-              }}
-            >
+          <div className="offer-text-content d-flex flex-column justify-content-center" style={{ width: '45%', textAlign: 'left' }}>
+            <h2 className='mb-2'>
               Premium Bulk Grains for Your Business
-            </h3>
+            </h2>
 
-            <p
-              style={{
-                fontFamily: 'Inter, sans-serif',
-                fontWeight: 400,
-                fontStyle: 'normal',
-                fontSize: '1.375rem', // 28px
-                lineHeight: '1.875rem', // 30px
-                color: '#565656',
-                marginTop: '1.25rem',
-                marginBottom: '1.5rem',
-                maxWidth: '33rem',
-              }}
-            >
+            <p className='mb-3'>
               Direct from farms, quality assured, reliable supply across India. Sourcing bulk rice and dals has never been easier.
             </p>
 
@@ -58,7 +37,7 @@ const OfferCard = () => {
           </div>
 
           {/* Right: Image */}
-          <div className="d-flex justify-content-center" style={{ width: '45%' }}>
+          <div className="offer-image-content d-flex justify-content-center" style={{ width: '45%' }}>
             <img
               src={offerImg}
               alt="Premium Bulk Grains"
@@ -82,24 +61,48 @@ const OfferCard = () => {
 
         @media (max-width: 1200px) {
           /* remove left offset on narrower screens and make card full-width */
-          .offer-card { width: 100% !important; margin-left: 0 !important; height: auto !important; padding: 2rem !important; }
-          .offer-card > div:first-child { width: 100% !important; display: flex; justify-content: center; }
-          .offer-card img { width: 36rem !important; height: 21rem !important; }
-          h3 { font-size: 3rem !important; line-height: 3.5rem !important; }
-          p { font-size: 1.25rem !important; line-height: 1.75rem !important; }
+          .offer-card { 
+            width: 100% !important; 
+            margin-left: 0 !important; 
+            height: auto !important; 
+            padding: 2rem !important; 
+          }
+          .offer-text-content { width: 50% !important; }
+          .offer-image-content { width: 50% !important; }
+          .offer-card img { 
+            width: 28rem !important; 
+            height: 15rem !important; 
+          }
         }
 
         @media (max-width: 768px) {
-          .offer-card { padding: 1.5rem !important; gap: 1rem !important; }
-          .offer-card img { width: 100% !important; height: auto !important; border-radius: 1.5rem !important; }
-          h3 { font-size: 2rem !important; line-height: 2.4rem !important; }
-          p { font-size: 1rem !important; line-height: 1.5rem !important; max-width: 100% !important; }
+          .offer-card { 
+            flex-direction: column-reverse !important;
+            padding: 2rem 1.5rem !important; 
+            gap: 2rem !important; 
+          }
+          .offer-text-content { 
+            width: 100% !important; 
+            text-align: center !important;
+            align-items: center !important;
+          }
+          .offer-image-content { 
+            width: 100% !important; 
+          }
+          .offer-card img { 
+            width: 28rem !important; 
+            height: 15rem !important; 
+            max-width: 100%;
+          }
           .offer-section { padding-top: 3rem; padding-bottom: 3rem; }
         }
 
         @media (max-width: 480px) {
-          h3 { font-size: 1.5rem !important; line-height: 1.9rem !important; }
-          p { font-size: 0.95rem !important; line-height: 1.4rem !important; }
+          .offer-card img { 
+            width: 22rem !important; 
+            height: 12rem !important; 
+            border-radius: 1.5rem !important;
+          }
         }
       `}</style>
     </section>

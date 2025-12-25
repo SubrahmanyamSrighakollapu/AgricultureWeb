@@ -18,6 +18,10 @@ const FiltersSection = () => {
   const sliderMax = 100000;
   const sliderStep = 1000;
 
+  // Arrays for grain and pulse types
+  const grainTypes = ['Basmati Rice', 'Jasmine Rice', 'Long Grain White', 'Parboiled'];
+  const pulseTypes = ['Toor Dal', 'Chana Dal (Farm Fresh)', 'Moong Dal'];
+
   const handleSliderChange = (value) => {
     setSliderVal(Number(value));
     
@@ -67,7 +71,7 @@ const FiltersSection = () => {
 
       {/* Filter Header */}
       <div className="d-flex justify-content-between align-items-center mb-2">
-        <h5 className="filter-title mb-0">Filters</h5>
+        <h5 className="text-dark mb-0">Filters</h5>
         <button className="btn reset-btn" onClick={handleReset}>
           Reset All
         </button>
@@ -84,9 +88,9 @@ const FiltersSection = () => {
       {/* Grain Type & Pulses Type */}
       <div className="filter-group mb-4">
         {/* Grain Type */}
-        <h4 className="filter-group-title">Grain Type</h4>
-        {['Basmati Rice', 'Jasmine Rice', 'Long Grain White', 'Parboiled'].map(item => (
-          <div className="form-check mb-2" key={item}>
+        <p className="text-dark">Grain Type</p>
+        {grainTypes.map(item => (
+          <div className="form-check mb-2 d-flex align-items-center" key={item}>
             <input
               className="form-check-input custom-radio"
               type="checkbox"
@@ -94,16 +98,16 @@ const FiltersSection = () => {
               checked={selectedGrains.includes(item)}
               onChange={() => handleGrainChange(item)}
             />
-            <label className="form-check-label filter-option" htmlFor={`grain-${item}`}>
+            <label className="filter-option" htmlFor={`grain-${item}`}>
               {item}
             </label>
           </div>
         ))}
 
         {/* Pulses Type */}
-        <h4 className="filter-group-title mt-4">Pulses Type</h4>
-        {['Toor Dal', 'Chana Dal (Farm Fresh)', 'Moong Dal'].map(item => (
-          <div className="form-check mb-2" key={item}>
+        <p className="text-dark mt-4">Pulses Type</p>
+        {pulseTypes.map(item => (
+          <div className="form-check mb-2 d-flex align-items-center" key={item}>
             <input
               className="form-check-input custom-radio"
               type="checkbox"
@@ -111,7 +115,7 @@ const FiltersSection = () => {
               checked={selectedPulses.includes(item)}
               onChange={() => handlePulseChange(item)}
             />
-            <label className="form-check-label filter-option" htmlFor={`pulse-${item}`}>
+            <label className="filter-option" htmlFor={`pulse-${item}`}>
               {item}
             </label>
           </div>
@@ -121,11 +125,11 @@ const FiltersSection = () => {
       {/* Price Range */}
       <div className="filter-group mb-4">
         <div className="d-flex justify-content-between align-items-center mb-2">
-          <h4 className="filter-group-title mb-0">Price Range</h4>
+          <p className="text-dark mb-0">Price Range</p>
         </div>
 
-        <div className="d-flex align-items-center gap-2 mb-3 flex-wrap">
-          <div className="currency-input-wrapper" style={{ width: 'calc(50% - 0.5rem)' }}>
+        <div className="d-flex align-items-center gap-2 mb-3">
+          <div className="currency-input-wrapper">
             <span className="currency-prefix">₹</span>
             <input
               type="number"
@@ -138,7 +142,7 @@ const FiltersSection = () => {
 
           <span>-</span>
 
-          <div className="currency-input-wrapper" style={{ width: 'calc(50% - 0.5rem)' }}>
+          <div className="currency-input-wrapper">
             <span className="currency-prefix">₹</span>
             <input
               type="number"
@@ -148,8 +152,6 @@ const FiltersSection = () => {
               onChange={(e) => setMaxPrice(e.target.value)}
             />
           </div>
-
-
         </div>
 
         <div className="range-slider-container position-relative mb-2">
@@ -168,7 +170,7 @@ const FiltersSection = () => {
 
       {/* Bag Size */}
       <div className="filter-group">
-        <h4 className="filter-group-title">Bag Size</h4>
+        <p className="text-dark">Bag Size</p>
         <div className="d-flex justify-content-between text-muted small mb-2">
           <span>{bagSize}kg</span>
           <span>20kg</span>
@@ -196,13 +198,6 @@ const FiltersSection = () => {
         .search-input::placeholder {
           color: #565656;
           opacity: 0.8;
-        }
-
-        .filter-title {
-          font-family: 'Manrope', sans-serif;
-          font-weight: 500;
-          font-size: 24px;
-          color: #000000;
         }
 
         .reset-btn {
@@ -238,22 +233,14 @@ const FiltersSection = () => {
           padding: 1rem;
         }
 
-        .filter-group-title {
-          font-family: 'Manrope', sans-serif;
-          font-weight: 500;
-          font-size: 20px;
-          color: #000000;
-          margin-bottom: 0.75rem;
-        }
-
         .custom-radio {
           width: 16.67px;
           height: 16.67px;
           border: 2px solid #4BAF47;
           border-radius: 50%;
           appearance: none;
-          margin-top: 0.3em;
           cursor: pointer;
+          flex-shrink: 0;
         }
 
         .custom-radio:checked {
@@ -267,17 +254,22 @@ const FiltersSection = () => {
           font-size: 18px;
           color: #565656;
           margin-left: 0.75rem;
+          margin-bottom: 0;
+          cursor: pointer;
         }
 
         .form-control {
-          height: 3rem;
+          height: 2.5rem;
           font-size: 14px;
-          border-radius: 1.3rem;
+          border-radius: 0.5rem;
           border: 0.2px solid #000000;
         }
 
         /* Currency input wrapper places the ₹ inside the input */
-        .currency-input-wrapper { position: relative; }
+        .currency-input-wrapper { 
+          position: relative; 
+          flex: 1;
+        }
         .currency-prefix {
           position: absolute;
           left: 0.75rem;
@@ -289,19 +281,14 @@ const FiltersSection = () => {
           pointer-events: none;
           z-index: 2;
         }
-        .currency-input { padding-left: 2.25rem; }
-
-        /* Put min/max inputs on one row on desktop */
-        .currency-input-wrapper[style] { width: calc(50% - 0.5rem); }
-
-        /* Ensure small screens stack the inputs */
-        @media (max-width: 992px) {
-          .currency-input-wrapper[style] { width: 100% !important; }
+        .currency-input { 
+          padding-left: 2rem;
+          width: 100%;
         }
 
         .range-slider-container {
           padding: 0.25rem 0;
-          background: transparent; /* removed border as requested */
+          background: transparent;
         }
 
         /* Style slider track with visible color (no surrounding border) */
@@ -313,7 +300,7 @@ const FiltersSection = () => {
 
         .form-range::-webkit-slider-runnable-track {
           height: 0.5rem;
-          background: #4BAF47; /* visible color */
+          background: #4BAF47;
           border-radius: 0.25rem;
         }
         .form-range::-moz-range-track {
@@ -329,7 +316,7 @@ const FiltersSection = () => {
           width: 20px;
           height: 20px;
           border-radius: 50%;
-          margin-top: -6px; /* vertically center the thumb */
+          margin-top: -6px;
         }
         .form-range::-moz-range-thumb {
           background: white;
@@ -345,12 +332,10 @@ const FiltersSection = () => {
           .filters-section { width: 100% !important; padding-left: 1rem !important; padding-right: 1rem !important; }
           .filter-group, .filter-results { width: 100% !important; }
           .search-input { width: 100% !important; }
-          .input-group[style] { width: calc(50% - 1rem) !important; }
         }
 
         @media (max-width: 576px) {
           .filter-group { padding: 0.75rem !important; }
-          .filter-group-title { font-size: 18px !important; }
         }
       `}</style>
     </div>

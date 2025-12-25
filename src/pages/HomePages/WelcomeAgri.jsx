@@ -20,16 +20,16 @@ const WelcomeAgri = () => {
             {/* Hero Background */}
             <div className="hero-bg d-flex align-items-center">
                 <div className="container hero-content text-white">
-                    <p className="text-uppercase fw-semibold mb-3">Welcome to agri farming</p>
+                    <h3 className="small white mb-3">Welcome to agri farming</h3>
 
                     <div className="mb-4">
-                        <h1 className="hero-title display-6 fw-bold">
+                        <h2 className="white col-5">
                             Empowering Local Farmers, Agents, and{' '}
                             <span className="title-end d-inline-flex align-items-center">
                                 Consumers
                                 <img src={leafImg} alt="Leaf decoration" className="leaf-img-inline ms-3" />
                             </span>
-                        </h1>
+                        </h2>
                     </div>
 
                     <div className="d-flex align-items-center gap-3">
@@ -42,7 +42,7 @@ const WelcomeAgri = () => {
                 <div className="container cards-container d-flex justify-content-center gap-4 flex-lg-row flex-column align-items-center">
                     {cards.map((card, index) => (
                         <div key={index} className="feature-card card d-flex flex-column align-items-center justify-content-center p-3 shadow-sm" style={{width: '18rem', height: '16rem'}}>
-                            <p className="card-feature mb-1 text-success text-center">{card.feature}</p>
+                            <p className="subtitle mb-1">{card.feature}</p>
                             <h3 className="card-title mb-2 text-center">{card.title}</h3>
                             <img src={card.img} alt={card.title} className="card-img" />
                         </div>
@@ -65,8 +65,6 @@ const WelcomeAgri = () => {
           padding-left: 25%;
         }
 
-        .hero-title { max-width: 40rem; color: #ffffff; }
-
         .leaf-img-inline { width: 5.75rem; height: 4.6875rem; object-fit: contain; }
         .leaves-img { height: 4rem; object-fit: contain; }
 
@@ -80,12 +78,10 @@ const WelcomeAgri = () => {
         /* Responsive adjustments (small overrides only) */
         @media (max-width: 992px) {
           .hero-bg { padding-left: 5%; }
-          .hero-title { font-size: 2.6rem; }
           .cards-container { margin-top: -4rem; }
         }
 
         @media (max-width: 768px) {
-          .hero-title { font-size: 2.2rem; }
           .cards-container { margin-top: -4rem; }
           .card-img { width: 5rem; height: 5rem; }
         }

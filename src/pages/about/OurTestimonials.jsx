@@ -31,23 +31,15 @@ const OurTestimonials = () => {
       backgroundPosition: 'center',
       backgroundRepeat: 'no-repeat'
     }}>
-      <p className="fw-medium m-0 mb-3" style={{
-        fontFamily: 'Inter, sans-serif',
-        fontSize: '1.5rem',
-        lineHeight: '2.25rem',
-        color: '#4BAF47'
-      }}>
+      <div className="section-header">
+      <p className="subtitle mb-1">
         Our Testimonials
       </p>
 
-      <h2 className="fw-semibold m-0 mb-5" style={{
-        fontFamily: 'Manrope, sans-serif',
-        fontSize: '2.5rem',
-        lineHeight: '1.9rem',
-        color: '#1F1E17'
-      }}>
+      <h2>
         What They Say
       </h2>
+      </div>
 
       <div className="d-flex flex-wrap justify-content-center mx-auto testimonial-cards-wrapper" style={{
         gap: '6rem',
@@ -101,39 +93,22 @@ const OurTestimonials = () => {
               zIndex: 1
             }}>
               <div className="h-100 d-flex flex-column justify-content-between">
-                <p className="fw-light text-start m-0" style={{
-                  fontFamily: 'Manrope, sans-serif',
-                  fontSize: '1.125rem',
-                  lineHeight: '1.8rem',
-                  color: '#878680'
-                }}>
+                <p>
                   {item.text}
                 </p>
 
-                <div className="d-flex align-items-center justify-content-between mt-4">
+                <div className="d-flex align-items-center justify-content-between mt-2">
                   <div className="d-flex rating-lines" style={{ gap: '0.1rem' }}>
-                    <img src={line} alt="Rating" style={{ width: '1rem', height: 'auto', objectFit: 'contain' }} />
-                    <img src={line} alt="Rating" style={{ width: '1rem', height: 'auto', objectFit: 'contain' }} />
-                    <img src={line} alt="Rating" style={{ width: '1rem', height: 'auto', objectFit: 'contain' }} />
-                    <img src={line} alt="Rating" style={{ width: '1rem', height: 'auto', objectFit: 'contain' }} />
-                    <img src={line} alt="Rating" style={{ width: '1rem', height: 'auto', objectFit: 'contain' }} />
+                    {[...Array(5)].map((_, i) => (
+                      <img key={i} src={line} alt="Rating" style={{ width: '1rem', height: 'auto', objectFit: 'contain' }} />
+                    ))}
                   </div>
 
                   <div className="text-end">
-                    <h3 className="fw-semibold m-0 mb-1" style={{
-                      fontFamily: 'Manrope, sans-serif',
-                      fontSize: '1.25rem',
-                      lineHeight: '1rem',
-                      color: '#1F1E17'
-                    }}>
+                    <h3 className="small mb-1">
                       {item.name}
                     </h3>
-                    <p className="fw-medium m-0" style={{
-                      fontFamily: 'Manrope, sans-serif',
-                      fontSize: '1rem',
-                      lineHeight: '1.625rem',
-                      color: '#878680'
-                    }}>
+                    <p className='text-end'>
                       {item.role}
                     </p>
                   </div>
@@ -147,88 +122,34 @@ const OurTestimonials = () => {
       <style jsx>{`
         /* Responsive adjustments */
         @media (max-width: 1200px) {
-          .testimonial-cards-wrapper {
-            gap: 3rem !important;
+          .testimonials-section {
+            padding: 3rem 2rem 5rem 2rem !important;
           }
-          .testimonial-card {
-            width: 30rem !important;
+          .testimonial-cards-wrapper {
+            gap: 4rem !important;
           }
         }
 
         @media (max-width: 992px) {
+          .testimonials-section {
+            padding: 3rem 1.5rem 5rem 1.5rem !important;
+          }
           .testimonial-cards-wrapper {
             flex-direction: column;
             align-items: center;
-          }
-          .testimonial-card {
-            width: 100% !important;
-            max-width: 35rem !important;
-            height: auto !important;
-            padding: 8rem 2rem 2rem 2rem !important;
-          }
-          .testimonial-image-wrapper {
-            left: 50% !important;
-            top: -5rem !important;
-            transform: translateX(-50%) !important;
-          }
-          .testimonial-overlay-icon {
-            left: 50% !important;
-            top: -1rem !important;
-            transform: translateX(-50%) !important;
-          }
-          h2 {
-            font-size: 2.25rem !important;
-            line-height: 3.2rem !important;
+            gap: 3rem !important;
           }
         }
 
         @media (max-width: 768px) {
           .testimonials-section {
-            padding: 5rem 1.5rem 6rem !important;
-          }
-          .testimonial-image-wrapper {
-            width: 7.5rem !important;
-            height: 9.375rem !important;
-            top: -4.5rem !important;
-          }
-          .testimonial-card p {
-            font-size: 1rem !important;
-          }
-          .testimonial-overlay-icon {
-            width: 3rem !important;
-            height: 3rem !important;
-          }
-          h2 {
-            font-size: 2rem !important;
-            line-height: 2.8rem !important;
-          }
-          .fw-medium:first-child {
-            font-size: 1.25rem !important;
+            padding: 3rem 1rem 4rem 1rem !important;
           }
         }
 
-        @media (max-width: 480px) {
+        @media (max-width: 576px) {
           .testimonials-section {
-            padding: 4rem 1rem 5rem !important;
-          }
-          .testimonial-image-wrapper {
-            width: 6.25rem !important;
-            height: 8.125rem !important;
-            top: -4rem !important;
-          }
-          h3 {
-            font-size: 1.125rem !important;
-          }
-          .text-end p {
-            font-size: 0.9375rem !important;
-          }
-          .testimonial-overlay-icon {
-            width: 2.5rem !important;
-            height: 2.5rem !important;
-          }
-          h2 {
-            font-size: 1.75rem !important;
-            line-height: 2.4rem !important;
+            padding: 2.5rem 0.75rem 3.5rem 0.75rem !important;
           }
         }
       `}</style>

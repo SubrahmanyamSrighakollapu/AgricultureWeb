@@ -34,33 +34,15 @@ const QualityProducts = () => {
 
                     {/* Right Section - Content */}
                     <div className="col-lg-6 d-flex flex-column p-4 p-lg-5 gap-3">
-                        <p className="m-0" style={{
-                            fontFamily: 'Inter, sans-serif',
-                            fontWeight: 500,
-                            fontSize: '1.5rem',
-                            lineHeight: '2.25rem',
-                            color: '#49A760'
-                        }}>
+                        <p className="subtitle">
                             Quality Products
                         </p>
                         
-                        <h2 className="m-0" style={{
-                            fontFamily: 'Manrope, sans-serif',
-                            fontWeight: 600,
-                            fontSize: '2.5rem',
-                            lineHeight: '1.2',
-                            color: '#1F1E17'
-                        }}>
+                        <h2>
                             Only Quality Food
                         </h2>
                         
-                        <p className="m-0" style={{
-                            fontFamily: 'Manrope, sans-serif',
-                            fontWeight: 400,
-                            fontSize: '1rem',
-                            lineHeight: '1.875rem',
-                            color: '#878680'
-                        }}>
+                        <p>
                             Pure, chemical-free organic food grown using natural farming practices.
                         </p>
 
@@ -71,30 +53,13 @@ const QualityProducts = () => {
                                     <img 
                                         src={feature.icon} 
                                         alt={feature.title} 
-                                        className="flex-shrink-0"
-                                        style={{
-                                            width: '4rem',
-                                            height: '4rem',
-                                            objectFit: 'contain'
-                                        }}
+                                        className="icon-img-big"
                                     />
                                     <div className="d-flex flex-column gap-2">
-                                        <h3 className="m-0" style={{
-                                            fontFamily: 'Manrope, sans-serif',
-                                            fontWeight: 600,
-                                            fontSize: '1.375rem',
-                                            lineHeight: '1.925rem',
-                                            color: '#1F1E17'
-                                        }}>
+                                        <h3 className="card-title">
                                             {feature.title}
                                         </h3>
-                                        <p className="m-0" style={{
-                                            fontFamily: 'Manrope, sans-serif',
-                                            fontWeight: 400,
-                                            fontSize: '1rem',
-                                            lineHeight: '1.875rem',
-                                            color: '#878680'
-                                        }}>
+                                        <p>
                                             {feature.text}
                                         </p>
                                     </div>
@@ -138,15 +103,13 @@ const QualityProducts = () => {
                         object-position: center 20% !important;
                     }
                     .col-lg-6 p:first-child { font-size: 1.25rem !important; }
-                    h2 { font-size: 1.75rem !important; line-height: 2.4rem !important; }
+                    
                     .flex-shrink-0 { width: 3rem !important; height: 3rem !important; }
                 }
 
                 /* Tablet adjustments */
                 @media (max-width: 768px) {
                     .quality-card { width: 90% !important; }
-                    h2 { font-size: 2rem !important; line-height: 2.8rem !important; }
-                    h3 { font-size: 1.25rem !important; }
                 }
 
                 @media (max-width: 1024px) {

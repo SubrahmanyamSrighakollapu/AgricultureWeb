@@ -29,16 +29,16 @@ const AffordableTools = () => {
                     {/* Right: Content */}
                     <div className="col-lg-6">
                         <div className="agent-left">
-                            <h2 className="section-title mb-2">Affordable Tools.Better Productivity.</h2>
-                            <p className="section-desc mb-0">Access essential farming equipment and quality inputs without the heavy financial burden. We connect you with verified suppliers and rental options.</p>
+                            <h2 className=" mb-2">Affordable Tools.Better Productivity.</h2>
+                            <p >Access essential farming equipment and quality inputs without the heavy financial burden. We connect you with verified suppliers and rental options.</p>
 
                             <div className="features-list mt-3">
                                 {features.map((feature, index) => (
                                     <div key={index} className="feature-item d-flex gap-3 align-items-start mb-3">
-                                        <img src={agentIcon} alt="" className="feature-icon" />
+                                        <img src={agentIcon} alt="" className="point-icon" />
                                         <div className="feature-content">
-                                            <h3 className="feature-title mb-0">{feature.title}</h3>
-                                            <p className="feature-text mb-0">{feature.text}</p>
+                                            <h3 className="card-title mb-0">{feature.title}</h3>
+                                            <p>{feature.text}</p>
                                         </div>
                                     </div>
                                 ))}
@@ -61,13 +61,10 @@ export const AffordableToolsCss = `
 .business-agent .container { max-width: 80.5rem; }
 
 .agent-left { max-width: 35rem; }
-.section-title { font-weight: 600; font-size: 1.8rem; color: #1F1E17; margin: 0 0 0.5rem 0; }
-.section-desc { font-weight: 400; font-size: 1rem; line-height: 1.875rem; color: #878680; margin: 0; }
+
 
 .feature-item { gap: 1rem; }
-.feature-icon { width: 1.5rem; height: 1.5rem; object-fit: contain; flex-shrink: 0; margin-top: 0.25rem; }
-.feature-title { font-weight: 600; font-size: 1.125rem; line-height: 2.1rem; color: #1F1E17; margin: 0; }
-.feature-text { font-weight: 400; font-size: 1rem; line-height: 1.875rem; color: #878680; margin: 0; }
+
 
 .image-wrapper { position: relative; width: 32.6875rem; height: 28.9375rem; max-width: 100%; overflow: visible; }
 
@@ -126,7 +123,7 @@ export const AffordableToolsCss = `
 }
 
 @media (max-width: 768px) {
-  .section-title { font-size: 2rem; line-height: 2.8rem; }
+ 
 
   /* Tablet: center overlays and scale by percent */
   .overlay-1, .overlay-2, .overlay-img { left: 50%; transform: translateX(-50%); }
@@ -135,9 +132,7 @@ export const AffordableToolsCss = `
 }
 
 @media (max-width: 480px) {
-  .section-title { font-size: 1.75rem; line-height: 2.4rem; }
-  .feature-title { font-size: 1.0625rem; }
-  .feature-icon { width: 1.375rem; height: 1.375rem; }
+  
   .image-wrapper { height: 18rem; }
 
   /* Mobile: make overlays responsive and centered */
@@ -146,14 +141,9 @@ export const AffordableToolsCss = `
   .image-wrapper { height: auto; }
 }
 
-@media (max-width: 768px) {
-  .section-title { font-size: 2rem; line-height: 2.8rem; }
-}
+
 
 @media (max-width: 480px) {
-  .section-title { font-size: 1.75rem; line-height: 2.4rem; }
-  .feature-title { font-size: 1.0625rem; }
-  .feature-icon { width: 1.375rem; height: 1.375rem; }
   .image-wrapper { height: 18rem; }
 }
 `;

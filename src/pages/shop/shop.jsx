@@ -9,9 +9,9 @@ const Shop = () => {
   return (
     <>
       <OfferCard />
-      <div style={{display:'flex'}}>
-      <FiltersSection />
-      <RiceAndGrain />
+      <div className="d-flex flex-column flex-lg-row">
+        <FiltersSection />
+        <RiceAndGrain />
       </div>
     </>
   );

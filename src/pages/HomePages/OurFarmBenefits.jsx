@@ -27,42 +27,29 @@ const OurFarmBenefits = () => {
     ];
 
     return (
-        <div className="w-100 bg-white py-5 px-4 d-flex justify-content-center my-5">
-            <div className="row g-5 align-items-center farm-wrapper mx-auto">
+        <div className="w-100 bg-white py-5 px-4 d-flex justify-content-center my-5" >
+            <div className="row align-items-center justify-content-center mx-auto farm-wrapper mx-auto" style={{gap:'1.8rem'}}>
                 {/* Left Section - Image */}
-                <div className="col-lg-6 p-0">
+                <div className="col-lg-5">
                     <img 
                         src={farmImg} 
                         alt="Our Farm" 
                         className="w-100 d-block rounded"
-                        style={{ height: '35rem', objectFit: 'cover' }}
+                        style={{ height: '39rem', objectFit: 'cover' }}
                     />
                 </div>
 
                 {/* Right Section - Content */}
-                <div className="col-lg-6 d-flex flex-column gap-2">
-                    <p className="m-0 fw-medium" style={{
-                        fontFamily: 'Inter, sans-serif',
-                        fontSize: '1.5rem',
-                        color: '#49A760'
-                    }}>
+                <div className="col-lg-5 d-flex flex-column gap-2">
+                    <p className="subtitle">
                         Our Farm Benefits
                     </p>
                     
-                    <h2 className="m-0 fw-semibold" style={{
-                        fontFamily: 'Manrope, sans-serif',
-                        fontSize: '2.5rem',
-                        color: '#1F1E17'
-                    }}>
+                    <h2>
                         Why Choose Agri Market
                     </h2>
                     
-                    <p className="m-0 fw-medium" style={{
-                        fontFamily: 'Manrope, sans-serif',
-                        fontSize: '1rem',
-                        lineHeight: '1.875rem',
-                        color: '#878680'
-                    }}>
+                    <p>
                         We connect you directly with trusted farmers to deliver pure, high-quality agricultural products with complete transparency and care.
                     </p>
 
@@ -73,28 +60,12 @@ const OurFarmBenefits = () => {
                                 <img 
                                     src={benefit.icon} 
                                     alt="" 
-                                    className="flex-shrink-0"
-                                    style={{
-                                        width: '2rem',
-                                        height: '2.5rem',
-                                        objectFit: 'contain'
-                                    }}
-                                />
+                                    className="point-icon flex-shrink-0"/>
                                 <div className="d-flex flex-column">
-                                    <h3 className="m-0 fw-semibold" style={{
-                                        fontFamily: 'Manrope, sans-serif',
-                                        fontSize: '1.375rem',
-                                        lineHeight: '2.1rem',
-                                        color: '#1F1E17'
-                                    }}>
+                                    <h3 className="card-title">
                                         {benefit.title}
                                     </h3>
-                                    <p className="m-0 fw-medium" style={{
-                                        fontFamily: 'Manrope, sans-serif',
-                                        fontSize: '1rem',
-                                        lineHeight: '1.875rem',
-                                        color: '#878680'
-                                    }}>
+                                    <p>
                                         {benefit.text}
                                     </p>
                                 </div>
@@ -114,8 +85,9 @@ const OurFarmBenefits = () => {
 
             <style jsx>{`
                 .farm-wrapper {
-                    max-width: 70.5rem;
+                    max-width: 100rem;
                     width: 100%;
+                    
                 }
 
                 /* Large tablets and below */
@@ -133,16 +105,11 @@ const OurFarmBenefits = () => {
 
                 /* Tablets */
                 @media (max-width: 768px) {
-                    h2 {
-                        font-size: 2rem !important;
-                        line-height: 2.8rem !important;
-                    }
+                    
                     .col-lg-6 p:first-child {
                         font-size: 1.25rem !important;
                     }
-                    h3 {
-                        font-size: 1.375rem !important;
-                    }
+                    
                     .w-100.py-5.px-4 {
                         padding: 4rem 1.5rem !important;
                     }
@@ -150,10 +117,7 @@ const OurFarmBenefits = () => {
 
                 /* Mobile */
                 @media (max-width: 480px) {
-                    h2 {
-                        font-size: 1.75rem !important;
-                        line-height: 2.4rem !important;
-                    }
+                    
                     .flex-shrink-0 {
                         width: 2rem !important;
                         height: 2rem !important;

@@ -18,16 +18,16 @@ const BusinessAsAgent = () => {
                     {/* Left: Content */}
                     <div className="col-lg-6">
                         <div className="agent-left">
-                            <h2 className="section-title mb-2">Grow Your Business as an Agent</h2>
-                            <p className="section-desc mb-0">Join a trusted network of agri-agents and scale your trading business with direct access to farmers, bulk supplies, and reliable support.</p>
+                            <h2>Grow Your Business as an Agent</h2>
+                            <p>Join a trusted network of agri-agents and scale your trading business with direct access to farmers, bulk supplies, and reliable support.</p>
 
                             <div className="features-list mt-3">
                                 {features.map((feature, index) => (
                                     <div key={index} className="feature-item d-flex gap-3 align-items-start mb-3">
-                                        <img src={agentIcon} alt="" className="feature-icon" />
+                                        <img src={agentIcon} alt="" className="point-icon" />
                                         <div className="feature-content">
-                                            <h3 className="feature-title mb-0">{feature.title}</h3>
-                                            <p className="feature-text mb-0">{feature.text}</p>
+                                            <h3 className="card-title">{feature.title}</h3>
+                                            <p>{feature.text}</p>
                                         </div>
                                     </div>
                                 ))}
@@ -56,13 +56,10 @@ export const businessAgentCss = `
 .business-agent .container { max-width: 80.5rem; }
 
 .agent-left { max-width: 35rem; }
-.section-title { font-weight: 700; font-size: 2.3rem; color: #1F1E17; margin: 0 0 0.5rem 0; }
-.section-desc { font-weight: 400; font-size: 1rem; line-height: 1.875rem; color: #878680; margin: 0; }
+
 
 .feature-item { gap: 1rem; }
-.feature-icon { width: 1.5rem; height: 1.5rem; object-fit: contain; flex-shrink: 0; margin-top: 0.25rem; }
-.feature-title { font-weight: 600; font-size: 1.125rem; line-height: 2.1rem; color: #1F1E17; margin: 0; }
-.feature-text { font-weight: 400; font-size: 1rem; line-height: 1.875rem; color: #878680; margin: 0; }
+
 
 .image-wrapper { position: relative; width: 32.6875rem; height: 28.9375rem; max-width: 100%; }
 .image-bg { position: absolute; right: -0.9375rem; bottom: -0.9375rem; width: 100%; height: 100%; background-color: #4BAF47; border-radius: 0.25rem; z-index: 0; }
@@ -78,14 +75,8 @@ export const businessAgentCss = `
   .business-agent { padding-left: 1.5rem; padding-right: 1.5rem; }
 }
 
-@media (max-width: 768px) {
-  .section-title { font-size: 2rem; line-height: 2.8rem; }
-}
 
 @media (max-width: 480px) {
-  .section-title { font-size: 1.75rem; line-height: 2.4rem; }
-  .feature-title { font-size: 1.0625rem; }
-  .feature-icon { width: 1.375rem; height: 1.375rem; }
   .image-wrapper { height: 18rem; }
   .image-bg { right: -0.5rem; bottom: -0.5rem; }
 }

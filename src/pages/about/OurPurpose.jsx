@@ -23,12 +23,7 @@ const OurPurpose = () => {
       padding: '4rem 8rem',
       backgroundColor: '#F8F7F0CC'
     }}>
-      <h2 className="fw-semibold m-0 mb-5" style={{
-        fontFamily: 'Manrope, sans-serif',
-        fontSize: '2.5rem',
-        lineHeight: '1.9rem',
-        color: '#1F1E17'
-      }}>
+      <h2 className="mb-5" >
         OUR PURPOSE
       </h2>
 
@@ -44,38 +39,19 @@ const OurPurpose = () => {
             boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.25)',
             boxSizing: 'border-box'
           }}>
-            <div className="rounded-circle d-flex align-items-center justify-content-center mb-4" style={{
-              width: '3rem',
-              height: '3rem',
-              backgroundColor: '#4BAF4747'
-            }}>
+            <div className="icon-bg mb-4">
               <img 
-                src={purpose.icon} 
-                alt={`${purpose.title} Icon`} 
-                className="rounded-circle"
-                style={{
-                  width: '1.75rem',
-                  height: '3rem',
-                  objectFit: 'contain'
-                }}
+                src={purpose.icon}
+                alt={`${purpose.title} Icon`}
+                className="icon-img"
               />
             </div>
 
-            <h3 className="fw-semibold m-0 mb-3" style={{
-              fontFamily: 'Manrope, sans-serif',
-              fontSize: '1.375rem',
-              lineHeight: '1.625rem',
-              color: '#1F1E17'
-            }}>
+            <h3 className="card-title mb-3">
               {purpose.title}
             </h3>
 
-            <p className="fw-light m-0 text-start" style={{
-              fontFamily: 'Manrope, sans-serif',
-              fontSize: '1.125rem',
-              lineHeight: '2.25rem',
-              color: '#878680'
-            }}>
+            <p  className="card-text">
               {purpose.text}
             </p>
           </div>
@@ -104,23 +80,14 @@ const OurPurpose = () => {
             height: auto !important;
             padding: 2rem 1.5rem !important;
           }
-          h2 {
-            font-size: 2.25rem !important;
-            line-height: 3.2rem !important;
-          }
+          
         }
 
         @media (max-width: 768px) {
           section {
             padding: 5rem 1.5rem 6rem !important;
           }
-          h2 {
-            font-size: 2rem !important;
-            line-height: 2.8rem !important;
-          }
-          h3 {
-            font-size: 1.25rem !important;
-          }
+          
           .purpose-card p {
             font-size: 1rem !important;
             line-height: 2rem !important;
@@ -131,18 +98,7 @@ const OurPurpose = () => {
           section {
             padding: 4rem 1rem 5rem !important;
           }
-          h2 {
-            font-size: 1.75rem !important;
-            line-height: 2.4rem !important;
-          }
-          .rounded-circle {
-            width: 3rem !important;
-            height: 3rem !important;
-          }
-          .rounded-circle img {
-            width: 1.5rem !important;
-            height: 1.5rem !important;
-          }
+          
         }
       `}</style>
     </section>

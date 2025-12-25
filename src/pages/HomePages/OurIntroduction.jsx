@@ -29,37 +29,37 @@ const OurIntroduction = () => {
 
                     {/* Right: Content */}
                     <div className="col-lg-6 pe-lg-5" style={{maxWidth: '37.5rem', display: 'flex', flexDirection: 'column', gap: '0.5rem'}}>
-                        <p className="fw-medium mb-2" style={{color: '#4BAF47', fontSize: '1.3rem', fontWeight: 500, margin: 0}}>Our Introductions</p>
+                        <p className="subtitle mb-2">Our Introductions</p>
 
-                        <h2 className="h2 fw-semibold" style={{maxWidth: '30rem', fontSize: '3rem', fontWeight: 800, margin: 0}}>Direct Farm Sourcing for Trusted Agents</h2>
+                        <h2 className='mb-2'>Direct Farm Sourcing for Trusted Agents</h2>
 
-                        <h3 className="h5 fw-bold" style={{color: '#4BAF47', fontSize: '1.5rem', margin: 0}}>Connecting agents directly with trusted farmers.</h3>
+                        <h3 className="small green">Connecting agents directly with trusted farmers.</h3>
 
-                        <p className="mb-2" style={{lineHeight: '1.8', color: '#878680', lineHeight:'30px'}}>We enable agents to source farm-fresh agricultural and organic products straight from verified farmers. Our platform simplifies bulk purchasing, ensures transparent pricing, and guarantees quality through direct-from-farm sourcing.</p>
+                        <p>We enable agents to source farm-fresh agricultural and organic products straight from verified farmers. Our platform simplifies bulk purchasing, ensures transparent pricing, and guarantees quality through direct-from-farm sourcing.</p>
 
                         {/* Features */}
                         <div className="d-flex gap-4 my-1 mb-3 flex-column flex-md-row">
                             <div className="d-flex align-items-center gap-3 flex-grow-1">
-                                <img src={vectorIcon} alt="Direct Farmer Sourcing" style={{width: '3.75rem', height: '3.75rem'}} />
-                                <h4 className="h6 mb-0 fw-bold">Direct Farmer Sourcing</h4>
+                                <img src={vectorIcon} alt="Direct Farmer Sourcing" className="icon-img-big" />
+                                <h4>Direct Farmer Sourcing</h4>
                             </div>
 
                             <div className="d-flex align-items-center gap-3 flex-grow-1">
-                                <img src={bulkIcon} alt="Bulk & Wholesale Supply" style={{width: '3.75rem', height: '3.75rem'}} />
-                                <h4 className="h6 mb-0 fw-bold">Bulk & Wholesale Supply</h4>
+                                <img src={bulkIcon} alt="Bulk & Wholesale Supply" className="icon-img-big" />
+                                <h4>Bulk & Wholesale Supply</h4>
                             </div>
                         </div>
 
                         {/* Benefits */}
                         <div className="d-flex flex-column gap-2 mb-3">
                             <div className="d-flex align-items-start gap-3">
-                                <img src={pointIcon} alt="Checkmark" style={{width: '1.5rem', height: '1.5rem'}} />
-                                <p className="mb-0 fw-semibold" style={{color:'#1F1E17'}}>Farm-direct products with transparent pricing</p>
+                                <img src={pointIcon} alt="Checkmark" className="point-icon" />
+                                <p className="text-dark">Farm-direct products with transparent pricing</p>
                             </div>
 
                             <div className="d-flex align-items-start gap-3">
-                                <img src={pointIcon} alt="Checkmark" style={{width: '1.5rem', height: '1.5rem'}} />
-                                <p className="mb-0 fw-semibold" style={{color:'#1F1E17'}}>Naturally grown, quality-verified, and traceable</p>
+                                <img src={pointIcon} alt="Checkmark" className="point-icon" />
+                                <p className="text-dark">Naturally grown, quality-verified, and traceable</p>
                             </div>
                         </div>
 

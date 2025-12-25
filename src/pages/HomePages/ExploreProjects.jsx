@@ -17,21 +17,12 @@ const ExploreProjects = () => {
   return (
     <div className="w-100 bg-white py-5 px-4 text-center">
       {/* Header Section */}
-      <div className="mb-4">
-        <p className="m-0 mb-2" style={{
-          fontFamily: 'Inter, sans-serif',
-          fontWeight: 500,
-          fontSize: '1.5rem',
-          color: '#49A760'
-        }}>
+      <div className="section-header">
+        
+        <p className="subtitle mb-1">
           Recently Completed
         </p>
-        <h2 className="m-0" style={{
-          fontFamily: 'Manrope, sans-serif',
-          fontWeight: 600,
-          fontSize: '2.5rem',
-          color: '#1F1E17'
-        }}>
+        <h2>
           Explore Projects
         </h2>
       </div>
@@ -82,13 +73,7 @@ const ExploreProjects = () => {
         }
 
         @media (max-width: 768px) {
-          h2 {
-            font-size: 2rem !important;
-            line-height: 2.8rem !important;
-          }
-          p {
-            font-size: 1.25rem !important;
-          }
+          
           .cards-grid {
             grid-template-columns: 1fr;
             gap: 1.5rem;

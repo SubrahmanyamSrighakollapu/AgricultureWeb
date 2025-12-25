@@ -1,6 +1,5 @@
 // src/components/Top.jsx
 
-import React from 'react';
 import topBg from '../assets/about/TopImg.png';
 
 const Top = ({ title, subtitle }) => {
@@ -17,30 +16,24 @@ const Top = ({ title, subtitle }) => {
       }}
     >
       <div className="container">
+        <div className='section-header' style={{marginTop: '6rem'}}>
         {/* Title */}
-        <h1
-          className="fw-semibold mb-3 display-4 display-xl-3 display-xxl-2"
-          style={{
-            fontFamily: "'Manrope', sans-serif",
-            textShadow: '0 2px 10px rgba(0, 0, 0, 0.6)',
-          }}
+        <h2
+          className="white mb-2"
+          
         >
           {title}
-        </h1>
+        </h2>
 
         {/* Subtitle */}
         {subtitle && (
           <p
-            className="text-uppercase small mb-0"
-            style={{
-              fontFamily: "'Manrope', sans-serif",
-              letterSpacing: '1.4px',
-              opacity: 0.7,
-            }}
+            style={{color:'#FFFFFFB2'}}
           >
             {subtitle}
           </p>
         )}
+        </div>
       </div>
     </section>
   );

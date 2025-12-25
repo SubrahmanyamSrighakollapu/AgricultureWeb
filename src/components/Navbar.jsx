@@ -1,11 +1,10 @@
 // src/components/Navbar.jsx
-
-import { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import navbarBg from '../assets/Navbar_bgImg.png';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import navbarBg from '../assets/Navbar_bgImg.png';
+import { useCart } from '../context/CartContext';
 
-// SVG Icons
 const SearchIcon = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1F1E17" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <circle cx="11" cy="11" r="8" />
@@ -39,6 +38,8 @@ const CloseIcon = () => (
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+  const { cartItems } = useCart();
 
   const navItems = [
     { name: 'Home', path: '/home' },
@@ -49,6 +50,7 @@ const Navbar = () => {
   ];
 
   const isActive = (path) => location.pathname === path;
+  const cartCount = cartItems.length;
 
   return (
     <>
@@ -68,7 +70,7 @@ const Navbar = () => {
             
             {/* Logo */}
             <div className="col-auto">
-              <Link to="/" className="text-decoration-none fw-semibold" style={{
+              <Link to="/home" className="text-decoration-none fw-semibold" style={{
                 fontFamily: 'Inter, sans-serif',
                 fontSize: '3rem',
                 color: '#4BAF47'
@@ -77,7 +79,7 @@ const Navbar = () => {
               </Link>
             </div>
 
-            {/* Desktop Menu - Hidden on mobile */}
+            {/* Desktop Menu */}
             <div className="col-auto d-none d-lg-flex">
               <div className="d-flex align-items-center" style={{ gap: '2.5rem' }}>
                 {navItems.map((item) => (
@@ -101,7 +103,7 @@ const Navbar = () => {
               </div>
             </div>
 
-            {/* Desktop Right Section - Hidden on mobile */}
+            {/* Desktop Right Section */}
             <div className="col-auto d-none d-lg-flex">
               <div className="d-flex align-items-center" style={{ gap: '1.5rem' }}>
                 <button 
@@ -135,21 +137,76 @@ const Navbar = () => {
                 </div>
                 
                 <div 
-                  className="d-flex align-items-center" 
+                  className="position-relative d-flex align-items-center" 
                   style={{ cursor: 'pointer', padding: '0.5rem' }}
+                  onClick={() => navigate('/cart')}
                 >
                   <CartIcon />
+                  {cartCount > 0 && (
+                    <span 
+                      className="position-absolute"
+                      style={{
+                        top: '-2px',
+                        left: '12px',
+                        background: '#4BAF47',
+                        color: 'white',
+                        borderRadius: '50%',
+                        width: '20px',
+                        height: '20px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontSize: '12px',
+                        fontWeight: '600'
+                      }}
+                    >
+                      {cartCount}
+                    </span>
+                  )}
                 </div>
               </div>
             </div>
 
-            {/* Mobile Menu Toggle - Visible only on mobile */}
+            {/* Mobile Right Section - Menu + Cart */}
             <div className="col-auto d-lg-none">
-              <div 
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                style={{ cursor: 'pointer', color: '#1F1E17' }}
-              >
-                {isMobileMenuOpen ? <CloseIcon /> : <MenuIcon />}
+              <div className="d-flex align-items-center" style={{ gap: '1rem' }}>
+                {/* Cart Icon for Mobile */}
+                <div 
+                  className="position-relative d-flex align-items-center" 
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => navigate('/cart')}
+                >
+                  <CartIcon />
+                  {cartCount > 0 && (
+                    <span 
+                      className="position-absolute"
+                      style={{
+                        top: '-8px',
+                        left: '12px',
+                        background: '#4BAF47',
+                        color: 'white',
+                        borderRadius: '50%',
+                        width: '20px',
+                        height: '20px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontSize: '12px',
+                        fontWeight: '600'
+                      }}
+                    >
+                      {cartCount}
+                    </span>
+                  )}
+                </div>
+
+                {/* Menu Toggle */}
+                <div 
+                  onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                  style={{ cursor: 'pointer', color: '#1F1E17' }}
+                >
+                  {isMobileMenuOpen ? <CloseIcon /> : <MenuIcon />}
+                </div>
               </div>
             </div>
 

@@ -29,28 +29,13 @@ const GetToKnowUs = () => {
 
         {/* Right Section - Content */}
         <div className="col-lg-5 d-flex flex-column gap-2">
-          <p className="m-0 fw-medium" style={{
-            fontFamily: 'Inter, sans-serif',
-            fontSize: '1.5rem',
-            color: '#49A760'
-          }}>
+          <p className="subtitle">
             Get to Know Us
           </p>
 
-          <h2 className="m-0 fw-semibold" style={{
-            fontFamily: 'Manrope, sans-serif',
-            fontSize: '2.5rem',
-            color: '#1F1E17'
-          }}>
-            Bridging the gap between rural roots and global markets
-          </h2>
+          <h2>Bridging the gap between rural roots and global markets</h2>
 
-          <p className="m-0 fw-medium" style={{
-            fontFamily: 'Manrope, sans-serif',
-            fontSize: '1rem',
-            lineHeight: '1.875rem',
-            color: '#878680'
-          }}>
+          <p>
             Originating from a desire to solve inefficiencies in the traditional supply chain, Organic Agri B2B was founded to empower stakeholders through transparency. We saw that farmers weren't getting fair value, and buyers struggled with authenticity verification.
           </p>
 
@@ -59,18 +44,9 @@ const GetToKnowUs = () => {
             <img
               src={pointImg}
               alt="Point"
-              className="flex-shrink-0"
-              style={{ width: '1.5rem', height: '1.5rem' }}
+              className="point-icon"
             />
-            <p className="m-0 fw-medium" style={{
-              fontFamily: 'Manrope, sans-serif',
-              fontWeight: 600,
-              fontSize: '1rem',
-              lineHeight: '1.8rem',
-              color: '#1F1E17'
-            }}>
-              Today, our platform serves as a digital bridge—ensuring fair trade practices and full traceability from seed to shelf.
-            </p>
+            <p className="text-dark">Today, our platform serves as a digital bridge—ensuring fair trade practices and full traceability from seed to shelf.</p>
           </div>
 
           {/* Button */}
@@ -110,10 +86,7 @@ const GetToKnowUs = () => {
           .w-100.bg-white {
             padding: 5rem 1.5rem !important;
           }
-          h2 {
-            font-size: 2rem !important;
-            line-height: 2.8rem !important;
-          }
+          
           .col-lg-6 p:first-child {
             font-size: 1.25rem !important;
           }
@@ -126,10 +99,6 @@ const GetToKnowUs = () => {
         @media (max-width: 480px) {
           .w-100.bg-white {
             padding: 4rem 1rem !important;
-          }
-          h2 {
-            font-size: 1.75rem !important;
-            line-height: 2.4rem !important;
           }
           .row.g-5 {
             gap: 2rem !important;
