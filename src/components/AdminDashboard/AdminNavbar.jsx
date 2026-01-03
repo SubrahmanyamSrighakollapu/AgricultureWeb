@@ -23,12 +23,13 @@ const AdminNavbar = () => {
               </div>
 
               <div 
-                className="d-flex align-items-center gap-2 px-3 py-2"
+                className="d-flex align-items-center gap-2 px-4 py-1"
                 style={{
                   backgroundColor: '#F2F2F2',
                   border: '1px solid #929292',
                   borderRadius: '50px',
-                  minHeight: '30px',
+                  minWidth: '190px',
+                  height: '55px',
                   opacity: 1
                 }}
               >

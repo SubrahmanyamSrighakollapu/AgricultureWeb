@@ -18,29 +18,30 @@ const AgentNavbar = () => {
             <div className="d-flex align-items-center justify-content-end gap-3">
               {/* Icon 1 */}
               <div className="d-none d-md-flex">
-                <img 
-                  src={Icon1} 
-                  alt="Icon 1" 
+                <img
+                  src={Icon1}
+                  alt="Icon 1"
                   style={{ width: '25px', height: '25px', opacity: 1 }}
                 />
               </div>
 
               {/* Wallet Balance Container */}
-              <div 
+              <div
                 className="d-flex align-items-center gap-2 px-3 py-2"
                 style={{
                   backgroundColor: '#F2F2F2',
                   border: '1px solid #929292',
                   borderRadius: '50px',
-                  minHeight: '30px',
+                  minWidth: '190px',
+                  height: '55px',
                   opacity: 1
                 }}
               >
                 {/* Icon 2 */}
                 <div className="d-flex align-items-center">
-                  <img 
-                    src={Icon2} 
-                    alt="Wallet Icon" 
+                  <img
+                    src={Icon2}
+                    alt="Wallet Icon"
                     style={{ width: '25px', height: '25px', opacity: 1 }}
                   />
                 </div>
@@ -57,7 +58,7 @@ const AgentNavbar = () => {
               </div>
 
               {/* User Profile Container */}
-              <div 
+              <div
                 className="d-flex align-items-center gap-2"
                 style={{
                   width: '13rem', /* 208px */
@@ -66,7 +67,7 @@ const AgentNavbar = () => {
                 }}
               >
                 {/* User Avatar */}
-                <div 
+                <div
                   style={{
                     width: '3.625rem', /* 58px */
                     height: '3.625rem', /* 58px */
@@ -78,7 +79,7 @@ const AgentNavbar = () => {
 
                 {/* User Info */}
                 <div className="d-flex flex-column justify-content-center">
-                  <p 
+                  <p
                     className="mb-0"
                     style={{
                       fontFamily: 'Inter, sans-serif',
@@ -93,7 +94,7 @@ const AgentNavbar = () => {
                   >
                     Rajesh Kumar
                   </p>
-                  <p 
+                  <p
                     className="mb-0 text-gray-20"
                     style={{
                       fontSize: '0.875rem' /* 14px for subtitle */
