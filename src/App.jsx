@@ -32,6 +32,16 @@ import Reports from './AgentDashboard/pages/Reports/Reports';
 import Settlements from './AgentDashboard/pages/Settlements/Settlements';
 import VendorPayments from './AgentDashboard/pages/VendorPayments/VendorPayments';
 
+// Import your ADMIN DASHBOARD layout and pages
+import AdminLayout from './AdminDashboard/AdminLayout/AdminLayout';
+import AdminDashboard from './AdminDashboard/pages/Dashboard/Dashboard';
+import UserServiceSettings from './AdminDashboard/pages/UserServiceSettings/UserServiceSettings';
+import CreateUser from './AdminDashboard/pages/Dashboard/AdminActions/CreateUser';
+import CreateAgent from './AdminDashboard/pages/Dashboard/AdminActions/CreateAgent';
+import AgentKycVerification from './AdminDashboard/pages/Dashboard/AdminActions/AgentKycVerification';
+import AgentOnboarded from './AdminDashboard/pages/Dashboard/AdminActions/AgentOnboarded';
+import CreateEmployee from './AdminDashboard/pages/Dashboard/AdminActions/CreateEmployee';
+
 function App() {
   return (
     <Router>
@@ -76,6 +86,16 @@ function App() {
             {/* <Route path="vendor-payments" element={<VendorPayments />} /> */}
             {/* <Route path="settlements" element={<Settlements />} /> */}
             {/* <Route path="reports" element={<Reports />} /> */}
+          </Route>
+          {/* ADMIN DASHBOARD routes wrapped with AdminLayout */}
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route index element={<AdminDashboard />} />
+            <Route path="user-service-settings" element={<UserServiceSettings />} />
+            <Route path="create-user" element={<CreateUser />} />
+            <Route path="create-agent" element={<CreateAgent />} />
+            <Route path="agent-kyc-verification" element={<AgentKycVerification />} />
+            <Route path="agent-onboarded" element={<AgentOnboarded />} />
+            <Route path="create-employee" element={<CreateEmployee />} />
           </Route>
         </Routes>
       </CartProvider>
