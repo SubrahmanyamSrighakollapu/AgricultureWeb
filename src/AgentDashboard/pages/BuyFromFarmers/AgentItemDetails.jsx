@@ -10,7 +10,7 @@ import Img1 from '../../../assets/shop/Details/Img1.jpg';
 import Img2 from '../../../assets/shop/Details/Img2.jpg';
 import Button from '../../../components/Button/Button';
 import { useCart } from '../../../context/CartContext';
-
+import productsData from '../../../data/products.json';
 import { getImageUrl } from '../../../utils/imageLoader';
 
 const AgentItemDetails = () => {
@@ -61,7 +61,7 @@ const AgentItemDetails = () => {
 
   const handleAddToCart = () => {
     addToCart(product, quantity);
-    
+    navigate('/agent/cart');
   };
 
   const incrementQty = () => setQuantity(prev => prev + 1);

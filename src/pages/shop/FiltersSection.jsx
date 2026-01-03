@@ -291,27 +291,28 @@ const FiltersSection = () => {
           background: transparent;
         }
 
-        /* Style slider track with visible color (no surrounding border) */
+        /* Price Range Slider with progress fill */
         .form-range {
           width: 100%;
           height: 0.5rem;
           background: transparent;
+          position: relative;
         }
 
         .form-range::-webkit-slider-runnable-track {
           height: 0.5rem;
-          background: #4BAF47;
+          background: linear-gradient(to right, #4BAF47 0%, #4BAF47 ${(sliderVal - sliderMin) / (sliderMax - sliderMin) * 100}%, #E5E5E5 ${(sliderVal - sliderMin) / (sliderMax - sliderMin) * 100}%, #E5E5E5 100%);
           border-radius: 0.25rem;
         }
         .form-range::-moz-range-track {
           height: 0.5rem;
-          background: #4BAF47;
+          background: linear-gradient(to right, #4BAF47 0%, #4BAF47 ${(sliderVal - sliderMin) / (sliderMax - sliderMin) * 100}%, #E5E5E5 ${(sliderVal - sliderMin) / (sliderMax - sliderMin) * 100}%, #E5E5E5 100%);
           border-radius: 0.25rem;
         }
 
         .form-range::-webkit-slider-thumb {
-          background: white;
-          border: 2px solid #888;
+          background: #4BAF47;
+          border: 2px solid #4BAF47;
           box-shadow: 0 2px 6px rgba(0,0,0,0.2);
           width: 20px;
           height: 20px;
@@ -319,8 +320,38 @@ const FiltersSection = () => {
           margin-top: -6px;
         }
         .form-range::-moz-range-thumb {
-          background: white;
-          border: 2px solid #888;
+          background: #4BAF47;
+          border: 2px solid #4BAF47;
+          box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+          width: 20px;
+          height: 20px;
+          border-radius: 50%;
+        }
+
+        /* Bag Size Range Slider with progress fill */
+        .bag-range::-webkit-slider-runnable-track {
+          height: 0.5rem;
+          background: linear-gradient(to right, #4BAF47 0%, #4BAF47 ${(bagSize - 1) / (20 - 1) * 100}%, #E5E5E5 ${(bagSize - 1) / (20 - 1) * 100}%, #E5E5E5 100%);
+          border-radius: 0.25rem;
+        }
+        .bag-range::-moz-range-track {
+          height: 0.5rem;
+          background: linear-gradient(to right, #4BAF47 0%, #4BAF47 ${(bagSize - 1) / (20 - 1) * 100}%, #E5E5E5 ${(bagSize - 1) / (20 - 1) * 100}%, #E5E5E5 100%);
+          border-radius: 0.25rem;
+        }
+
+        .bag-range::-webkit-slider-thumb {
+          background: #4BAF47;
+          border: 2px solid #4BAF47;
+          box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+          width: 20px;
+          height: 20px;
+          border-radius: 50%;
+          margin-top: -6px;
+        }
+        .bag-range::-moz-range-thumb {
+          background: #4BAF47;
+          border: 2px solid #4BAF47;
           box-shadow: 0 2px 6px rgba(0,0,0,0.2);
           width: 20px;
           height: 20px;

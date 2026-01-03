@@ -7,7 +7,7 @@ const AgentNavbar = () => {
   return (
     <div className="border" style={{ borderColor: '#929292', backgroundColor: '#FFFFFF' }}>
       <div className="container-fluid">
-        <div className="row align-items-center py-3 px-3">
+        <div className="row align-items-center py-2 px-3">
           {/* Left Side - Logo */}
           <div className="col-4 col-sm-4 col-md-4 col-lg-3">
             <h1 className="mb-0">LOGO</h1>
@@ -21,7 +21,7 @@ const AgentNavbar = () => {
                 <img 
                   src={Icon1} 
                   alt="Icon 1" 
-                  style={{ width: '44px', height: '44px', opacity: 1 }}
+                  style={{ width: '25px', height: '25px', opacity: 1 }}
                 />
               </div>
 
@@ -32,7 +32,7 @@ const AgentNavbar = () => {
                   backgroundColor: '#F2F2F2',
                   border: '1px solid #929292',
                   borderRadius: '50px',
-                  minHeight: '78px',
+                  minHeight: '30px',
                   opacity: 1
                 }}
               >
@@ -41,7 +41,7 @@ const AgentNavbar = () => {
                   <img 
                     src={Icon2} 
                     alt="Wallet Icon" 
-                    style={{ width: '34px', height: '34px', opacity: 1 }}
+                    style={{ width: '25px', height: '25px', opacity: 1 }}
                   />
                 </div>
 

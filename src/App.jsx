@@ -9,8 +9,9 @@ import Layout from './layout/Layout'; // This is your AGRICULTURE website layout
 import About from './pages/about/About';
 import Cart from './pages/Cart/Cart';
 import CheckOut from './pages/Cart/Checkout';
-import OrderPlaced from './pages/Cart/OrderPlaced';
+import ContactUs from './pages/ContactUs';
 import MainPage from './pages/HomePages/MainPage';
+import OrderPlaced from './pages/Cart/OrderPlaced';
 import Services from './pages/service/Services';
 import Details from './pages/shop/Details/Details';
 import Shop from './pages/shop/shop';
@@ -20,9 +21,16 @@ import TermsAndConditions from './pages/TermsAndConditions/TermsAndConditions';
 
 // Import your AGENT DASHBOARD layout and pages
 import AgentLayout from './AgentDashboard/AgentLayout/AgentLayout'; // Agent Dashboard layout
+import AgentCart from "./AgentDashboard/pages/BuyFromFarmers/AgentCart";
 import AgentItemDetails from "./AgentDashboard/pages/BuyFromFarmers/AgentItemDetails";
 import BuyFromFarmers from './AgentDashboard/pages/BuyFromFarmers/BuyFromFarmers';
+import AgentCheckout from './AgentDashboard/pages/Checkout/AgentCheckout';
+import AgentOrderPlaced from './AgentDashboard/pages/Checkout/AgentOrderPlaced';
 import Dashboard from './AgentDashboard/pages/Dashboard/Dashboard';
+import PlaceOrders from './AgentDashboard/pages/PlaceOrders/PlaceOrders';
+import Reports from './AgentDashboard/pages/Reports/Reports';
+import Settlements from './AgentDashboard/pages/Settlements/Settlements';
+import VendorPayments from './AgentDashboard/pages/VendorPayments/VendorPayments';
 
 function App() {
   return (
@@ -42,6 +50,7 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/services" element={<Services />} />
             <Route path="/shop" element={<Shop />} />
+            <Route path="/contact" element={<ContactUs />} />
             <Route path="/details/:id" element={<Details />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/cart/checkout" element={<CheckOut />} />
@@ -55,7 +64,14 @@ function App() {
           <Route path="/agent" element={<AgentLayout />}>
             <Route index element={<Dashboard />} />
             <Route path="buy-from-farmers" element={<BuyFromFarmers />} />
-            <Route path="agent/agent-item-details/:id" element={<AgentItemDetails />} />
+            <Route path="agent-item-details/:id" element={<AgentItemDetails />} />
+            <Route path="cart" element={<AgentCart />} />
+            <Route path="checkout" element={<AgentCheckout />} />
+            <Route path="order-placed" element={<AgentOrderPlaced />} />
+            <Route path="place-orders" element={<PlaceOrders />} />
+            <Route path="vendor-payments" element={<VendorPayments />} />
+            <Route path="settlements" element={<Settlements />} />
+            <Route path="reports" element={<Reports />} />
             {/* <Route path="place-orders" element={<PlaceOrders />} /> */}
             {/* <Route path="vendor-payments" element={<VendorPayments />} /> */}
             {/* <Route path="settlements" element={<Settlements />} /> */}

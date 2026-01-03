@@ -47,12 +47,29 @@ const Footer = () => {
                             <img src={divider} alt="" className="d-block mb-3 divider" />
 
                             <div className="d-flex flex-column gap-2">
-                                {quickLinks.map((link, index) => (
-                                    <div key={index} className="d-flex align-items-center gap-2">
-                                        <img src={icon} alt="" style={{ width: '0.9375rem', height: '0.9375rem' }} />
-                                        <span style={{ color: '#A5A49A', fontFamily: 'Manrope, sans-serif', fontWeight: 500, fontSize: '0.9375rem' }}>{link}</span>
-                                    </div>
-                                ))}
+                                {quickLinks.map((link, index) => {
+                                    const linkPath = link === 'About' ? '/about' : 
+                                                   link === 'Services' ? '/services' : 
+                                                   link === 'Contact' ? '/contact' : '#';
+                                    
+                                    return (
+                                        <div key={index} className="d-flex align-items-center gap-2">
+                                            <img src={icon} alt="" style={{ width: '0.9375rem', height: '0.9375rem' }} />
+                                            <Link 
+                                                to={linkPath} 
+                                                style={{ 
+                                                    color: '#A5A49A', 
+                                                    fontFamily: 'Manrope, sans-serif', 
+                                                    fontWeight: 500, 
+                                                    fontSize: '0.9375rem',
+                                                    textDecoration: 'none'
+                                                }}
+                                            >
+                                                {link}
+                                            </Link>
+                                        </div>
+                                    );
+                                })}
                             </div>
                         </div>
 

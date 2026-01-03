@@ -12,7 +12,7 @@ const ProductCard = ({ product, isAgentView = false }) => {
   const handleCardClick = () => {
     // Navigate based on context
     if (isAgentView) {
-      navigate(`/agent/item-details/${product.id}`);
+      navigate(`/agent/agent-item-details/${product.id}`);
     } else {
       navigate(`/details/${product.id}`);
     }

@@ -24,26 +24,26 @@ const AgentRiceAndGrains = () => {
   };
 
   return (
-    <div className="rice-grain-section" style={{ width: '75%', padding: '1rem' }}>
+    <div className="rice-grain-section" style={{ width: '75%', padding: '0.75rem' }}>
       {/* Top Banner */}
-      <div className="banner-card px-4 py5">
-        <h2 className="mb-2">Wholesale Rice & Grains</h2>
-        <p className="green mb-0 col-8">
+      <div className="banner-card px-3 py-3 mb-3">
+        <h1 className="mb-1" style={{ fontSize: '25px', fontWeight: '600' }}>Wholesale Rice & Grains</h1>
+        <p className="green mb-0 col-10" style={{ fontSize: '18px', lineHeight: '1.4' }}>
           Verified direct-from-farm sourcing for enterprise buyers. Bulk pricing available for orders over 10 tons.
         </p>
       </div>
 
       {/* Products Found */}
-      <div className="mb-4">
-        <h3 
+      <div className="mb-3">
+        <h5 
           className="fw-semibold"
           style={{
-            fontSize: '24px',
+            fontSize: '16px',
             color: '#000000'
           }}
         >
           {products.length} Products Found
-        </h3>
+        </h5>
       </div>
 
       {/* Product Grid */}
