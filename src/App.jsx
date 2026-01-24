@@ -35,12 +35,39 @@ import VendorPayments from './AgentDashboard/pages/VendorPayments/VendorPayments
 // Import your ADMIN DASHBOARD layout and pages
 import AdminLayout from './AdminDashboard/AdminLayout/AdminLayout';
 import AdminDashboard from './AdminDashboard/pages/Dashboard/Dashboard';
-import UserServiceSettings from './AdminDashboard/pages/UserServiceSettings/UserServiceSettings';
-import CreateUser from './AdminDashboard/pages/Dashboard/AdminActions/CreateUser';
+import UserServiceSettings from './AdminDashboard/pages/UserManagement/UserServiceSettings';
+import AdminReports from './AdminDashboard/pages/Reports/Reports';
+import HoldTransactions from './AdminDashboard/pages/Reports/HoldTransactions';
+import CreateUser from './AdminDashboard/pages/UserManagement/CreateUser';
 import CreateAgent from './AdminDashboard/pages/Dashboard/AdminActions/CreateAgent';
 import AgentKycVerification from './AdminDashboard/pages/Dashboard/AdminActions/AgentKycVerification';
 import AgentOnboarded from './AdminDashboard/pages/Dashboard/AdminActions/AgentOnboarded';
 import CreateEmployee from './AdminDashboard/pages/Dashboard/AdminActions/CreateEmployee';
+import AddChargeConfiguration from './AdminDashboard/pages/Integrations/AddChargeConfiguration';
+import PaymentGatewaySetup from './AdminDashboard/pages/Integrations/PaymentGatewaySetup';
+import AddPaymentGateway from './AdminDashboard/pages/Integrations/AddPaymentGateway';
+import AgentOtpVerification from './AdminDashboard/pages/OtpVerification';
+import RolesManagement from './AdminDashboard/pages/AdminSettings/RolesManagement';
+import PlansManagement from './AdminDashboard/pages/AdminSettings/PlansManagement';
+import PlanCommissionManager from './AdminDashboard/pages/AdminSettings/PlanCommissionManager';
+import ScrollTextManager from './AdminDashboard/pages/AdminSettings/ScrollTextManager';
+import NoticeBoardManager from './AdminDashboard/pages/AdminSettings/NoticeBoardManager';
+import PayoutChargesManager from './AdminDashboard/pages/AdminSettings/PayoutChargesManager';
+import AgentProducts from './AdminDashboard/pages/Product/AgentProducts';
+import WalletManagement from './AdminDashboard/pages/WalletManagement/WalletManagement';
+import PaymentMethodsManager from './AdminDashboard/pages/AdminSettings/PaymentMethodsManager';
+import SetBalanceRequirement from './AdminDashboard/pages/AdminSettings/SetBalanceRequirement';
+import UsersList from './AdminDashboard/pages/UserManagement/UsersList';
+import HoldFunds from './AdminDashboard/pages/UserManagement/HoldFunds';
+import AddWallet from './AdminDashboard/pages/UserManagement/AddWallet';
+import ConfirmWalletCredit from './AdminDashboard/pages/ConfirmWalletCredit';
+import AdminPrivacyPolicy from './AdminDashboard/pages/WebsiteSettings/PrivacyPolicy';
+import AdminTermsAndConditions from './AdminDashboard/pages/WebsiteSettings/TermsAndConditions';
+import AdminRefundPolicy from './AdminDashboard/pages/WebsiteSettings/RefundPolicy';
+import PurchaseInvoice from './AgentDashboard/pages/PurchaseInvoice';
+import SalesInvoice from './AgentDashboard/pages/SalesInvoice';
+import PaymentInvoice from './AgentDashboard/pages/PaymentInvoice';
+import WalletRequest from './AgentDashboard/pages/WalletRequest';
 
 function App() {
   return (
@@ -82,20 +109,72 @@ function App() {
             <Route path="vendor-payments" element={<VendorPayments />} />
             <Route path="settlements" element={<Settlements />} />
             <Route path="reports" element={<Reports />} />
+            <Route path="purchase-invoice" element={<PurchaseInvoice />} />
+            <Route path="sales-invoice" element={<SalesInvoice />} />
+            <Route path="payment-invoice" element={<PaymentInvoice />} />
+            <Route path="wallet-request" element={<WalletRequest />} />
+
             {/* <Route path="place-orders" element={<PlaceOrders />} /> */}
             {/* <Route path="vendor-payments" element={<VendorPayments />} /> */}
             {/* <Route path="settlements" element={<Settlements />} /> */}
             {/* <Route path="reports" element={<Reports />} /> */}
           </Route>
           {/* ADMIN DASHBOARD routes wrapped with AdminLayout */}
-          <Route path="/admin" element={<AdminLayout />}>
+            <Route path="/admin" element={<AdminLayout />}>
             <Route index element={<AdminDashboard />} />
+            <Route path="products" element={<AgentProducts />} />
+            <Route path="reports/hold-transactions" element={<HoldTransactions />} />
+            <Route path="reports/transaction-reports" element={<AdminReports />} />
             <Route path="user-service-settings" element={<UserServiceSettings />} />
+            <Route path="reports" element={<AdminReports />} />
             <Route path="create-user" element={<CreateUser />} />
             <Route path="create-agent" element={<CreateAgent />} />
             <Route path="agent-kyc-verification" element={<AgentKycVerification />} />
             <Route path="agent-onboarded" element={<AgentOnboarded />} />
             <Route path="create-employee" element={<CreateEmployee />} />
+
+            <Route path="integration/gateway" element={<AddPaymentGateway />} />
+            <Route path="integration/charge" element={<AddChargeConfiguration />} />
+            <Route path="admin-settings/roles-management" element={<RolesManagement />} />
+            <Route path="admin-settings/plans-management" element={<PlansManagement />} />
+            <Route path="admin-settings/plan-commission-manager" element={<PlanCommissionManager />} />
+            <Route path="admin-settings/scroll-text-manager" element={<ScrollTextManager />} />
+            <Route path="admin-settings/notice-board-manager" element={<NoticeBoardManager />} />
+            <Route path="admin-settings/payout-charges-manager" element={<PayoutChargesManager />} />
+            <Route path="admin-settings/set-balance-requirement" element={<SetBalanceRequirement />} />
+            <Route path="admin-settings/payment-methods-manager" element={<PaymentMethodsManager />} />
+            <Route path="user-management/user-service-settings" element={<UserServiceSettings />} />
+            <Route path="user-management/create-user" element={<CreateUser />} />
+            <Route path="user-management/users-list" element={<UsersList />} />
+            <Route path="user-management/add-wallet" element={<AddWallet />} />
+            <Route path="user-management/hold-funds" element={<HoldFunds />} />
+            <Route path="wallet-management" element={<WalletManagement />} />
+            <Route path="website-settings/privacy-policy" element={<AdminPrivacyPolicy />} />
+            <Route path="website-settings/terms-conditions" element={<AdminTermsAndConditions />} />
+            <Route path="website-settings/refund-policy" element={<AdminRefundPolicy />} />
+
+            <Route path="hold-transactions" element={<HoldTransactions />} />
+            <Route path="add-charge-configuration" element={<AddChargeConfiguration />} />
+            <Route path="payment-gateway-setup" element={<PaymentGatewaySetup />} />
+            <Route path="add-payment-gateway" element={<AddPaymentGateway />} />
+            <Route path="agent-otp-verification" element={<AgentOtpVerification />} />
+            <Route path="roles-management" element={<RolesManagement />} />
+            <Route path="plans-management" element={<PlansManagement />} />
+            <Route path="plan-comission-manager" element={<PlanCommissionManager />} />
+            <Route path="scroll-text-manager" element={<ScrollTextManager />} />
+            <Route path="notice-board-manager" element={<NoticeBoardManager />} />
+            <Route path="payout-charges-manager" element={<PayoutChargesManager />} />
+            <Route path="terms-conditions" element={<TermsAndConditions />} />
+            <Route path="refund-policy" element={<RefundPolicy />} />
+            <Route path="privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="agent-products" element={<AgentProducts />} />
+            <Route path="wallet-management" element={<WalletManagement />} />
+            <Route path="payment-methods-manager" element={<PaymentMethodsManager />} />
+            <Route path="set-balance-requirement" element={<SetBalanceRequirement />} />
+            <Route path="users-list" element={<UsersList />} />
+            <Route path="hold-funds" element={<HoldFunds />} />
+            <Route path="add-wallet" element={<AddWallet />} />
+            <Route path="confirm-wallet-credit" element={<ConfirmWalletCredit />} />
           </Route>
         </Routes>
       </CartProvider>
