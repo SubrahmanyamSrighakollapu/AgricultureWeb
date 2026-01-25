@@ -1,5 +1,7 @@
 // src/App.jsx
 import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Login from './auth/Login';
 import OtpVerification from './auth/OtpVerification';
 import Signup from './auth/Signup';
@@ -39,7 +41,7 @@ import UserServiceSettings from './AdminDashboard/pages/UserManagement/UserServi
 import AdminReports from './AdminDashboard/pages/Reports/Reports';
 import HoldTransactions from './AdminDashboard/pages/Reports/HoldTransactions';
 import CreateUser from './AdminDashboard/pages/UserManagement/CreateUser';
-import CreateAgent from './AdminDashboard/pages/Dashboard/AdminActions/CreateAgent';
+import CreateAgent from './AdminDashboard/pages/AgentManagement/CreateAgent';
 import AgentKycVerification from './AdminDashboard/pages/Dashboard/AdminActions/AgentKycVerification';
 import AgentOnboarded from './AdminDashboard/pages/Dashboard/AdminActions/AgentOnboarded';
 import CreateEmployee from './AdminDashboard/pages/Dashboard/AdminActions/CreateEmployee';
@@ -60,6 +62,7 @@ import SetBalanceRequirement from './AdminDashboard/pages/AdminSettings/SetBalan
 import UsersList from './AdminDashboard/pages/UserManagement/UsersList';
 import HoldFunds from './AdminDashboard/pages/UserManagement/HoldFunds';
 import AddWallet from './AdminDashboard/pages/UserManagement/AddWallet';
+import AgentsList from './AdminDashboard/pages/AgentManagement/AgentsList';
 import ConfirmWalletCredit from './AdminDashboard/pages/ConfirmWalletCredit';
 import AdminPrivacyPolicy from './AdminDashboard/pages/WebsiteSettings/PrivacyPolicy';
 import AdminTermsAndConditions from './AdminDashboard/pages/WebsiteSettings/TermsAndConditions';
@@ -67,6 +70,8 @@ import AdminRefundPolicy from './AdminDashboard/pages/WebsiteSettings/RefundPoli
 import PurchaseInvoice from './AgentDashboard/pages/PurchaseInvoice';
 import SalesInvoice from './AgentDashboard/pages/SalesInvoice';
 import PaymentInvoice from './AgentDashboard/pages/PaymentInvoice';
+import AddProducts from './AgentDashboard/pages/Products/AddProducts';
+import AddProductCategory from './AgentDashboard/pages/Products/AddProductCategory';
 import WalletRequest from './AgentDashboard/pages/WalletRequest';
 
 function App() {
@@ -113,6 +118,8 @@ function App() {
             <Route path="sales-invoice" element={<SalesInvoice />} />
             <Route path="payment-invoice" element={<PaymentInvoice />} />
             <Route path="wallet-request" element={<WalletRequest />} />
+            <Route path="products/add-category" element={<AddProductCategory />} />
+            <Route path="products/add-product" element={<AddProducts />} />
 
             {/* <Route path="place-orders" element={<PlaceOrders />} /> */}
             {/* <Route path="vendor-payments" element={<VendorPayments />} /> */}
@@ -148,6 +155,8 @@ function App() {
             <Route path="user-management/users-list" element={<UsersList />} />
             <Route path="user-management/add-wallet" element={<AddWallet />} />
             <Route path="user-management/hold-funds" element={<HoldFunds />} />
+            <Route path="agent-management/add-agent" element={<CreateAgent />} />
+            <Route path="agent-management/agents-list" element={<AgentsList />} />
             <Route path="wallet-management" element={<WalletManagement />} />
             <Route path="website-settings/privacy-policy" element={<AdminPrivacyPolicy />} />
             <Route path="website-settings/terms-conditions" element={<AdminTermsAndConditions />} />
@@ -177,6 +186,20 @@ function App() {
             <Route path="confirm-wallet-credit" element={<ConfirmWalletCredit />} />
           </Route>
         </Routes>
+        
+        {/* Toast Container for notifications */}
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
       </CartProvider>
     </Router>
   );

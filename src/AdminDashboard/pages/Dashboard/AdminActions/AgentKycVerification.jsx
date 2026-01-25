@@ -1,15 +1,31 @@
 // src/AdminDashboard/pages/Dashboard/AdminActions/AgentKycVerification.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import lookupService from '../../../../services/lookupService';
 
 const AgentKycVerification = () => {
   const navigate = useNavigate();
-  const [uploadedFiles, setUploadedFiles] = useState({
-    idProof: null,
-    addressProof: null,
-    bankProof: null,
-    profilePhoto: null
-  });
+  const [documentTypes, setDocumentTypes] = useState([]);
+  const [uploadedFiles, setUploadedFiles] = useState({});
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    fetchDocumentTypes();
+  }, []);
+
+  const fetchDocumentTypes = async () => {
+    try {
+      setLoading(true);
+      const response = await lookupService.getAgentDocumentTypes();
+      if (response.status === 1 && response.result) {
+        setDocumentTypes(response.result);
+      }
+    } catch (error) {
+      console.error('Error fetching document types:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleFileUpload = (documentType, event) => {
     const file = event.target.files[0];
@@ -260,93 +276,35 @@ const AgentKycVerification = () => {
           <div className="documents-card">
             <h2 className="documents-title">Upload Documents</h2>
 
-            <div className="document-item">
-              <div className="document-info">
-                <h4>ID Proof</h4>
-                <p>Upload a copy of the agent's ID Proof (Aadhaar / PAN)</p>
+            {loading ? (
+              <div style={{ textAlign: 'center', padding: '40px', color: '#718096' }}>
+                Loading document types...
               </div>
-              <div className={`upload-box ${uploadedFiles.idProof ? 'uploaded' : ''}`}>
-                <input 
-                  type="file" 
-                  className="file-input" 
-                  accept=".pdf,.jpg,.jpeg,.png"
-                  onChange={(e) => handleFileUpload('idProof', e)}
-                />
-                <div className="upload-icon">{uploadedFiles.idProof ? '✓' : '↑'}</div>
-                <div className="upload-text">
-                  {uploadedFiles.idProof ? 'Uploaded' : 'Click to upload'}
+            ) : (
+              documentTypes.map((docType) => (
+                <div key={docType.statusId} className="document-item">
+                  <div className="document-info">
+                    <h4>{docType.statusValue}</h4>
+                    <p>{docType.stausDiscription}</p>
+                  </div>
+                  <div className={`upload-box ${uploadedFiles[docType.statusValue] ? 'uploaded' : ''}`}>
+                    <input 
+                      type="file" 
+                      className="file-input" 
+                      accept=".pdf,.jpg,.jpeg,.png"
+                      onChange={(e) => handleFileUpload(docType.statusValue, e)}
+                    />
+                    <div className="upload-icon">{uploadedFiles[docType.statusValue] ? '✓' : '↑'}</div>
+                    <div className="upload-text">
+                      {uploadedFiles[docType.statusValue] ? 'Uploaded' : 'Click to upload'}
+                    </div>
+                    {uploadedFiles[docType.statusValue] && (
+                      <div className="file-name">{uploadedFiles[docType.statusValue].name}</div>
+                    )}
+                  </div>
                 </div>
-                {uploadedFiles.idProof && (
-                  <div className="file-name">{uploadedFiles.idProof.name}</div>
-                )}
-              </div>
-            </div>
-
-            <div className="document-item">
-              <div className="document-info">
-                <h4>Address Proof</h4>
-                <p>Upload a copy of the agent's address proof</p>
-              </div>
-              <div className={`upload-box ${uploadedFiles.addressProof ? 'uploaded' : ''}`}>
-                <input 
-                  type="file" 
-                  className="file-input" 
-                  accept=".pdf,.jpg,.jpeg,.png"
-                  onChange={(e) => handleFileUpload('addressProof', e)}
-                />
-                <div className="upload-icon">{uploadedFiles.addressProof ? '✓' : '↑'}</div>
-                <div className="upload-text">
-                  {uploadedFiles.addressProof ? 'Uploaded' : 'Click to upload'}
-                </div>
-                {uploadedFiles.addressProof && (
-                  <div className="file-name">{uploadedFiles.addressProof.name}</div>
-                )}
-              </div>
-            </div>
-
-            <div className="document-item">
-              <div className="document-info">
-                <h4>Bank Proof</h4>
-                <p>Upload a copy of the agent's bank proof (Cancelled Cheque)</p>
-              </div>
-              <div className={`upload-box ${uploadedFiles.bankProof ? 'uploaded' : ''}`}>
-                <input 
-                  type="file" 
-                  className="file-input" 
-                  accept=".pdf,.jpg,.jpeg,.png"
-                  onChange={(e) => handleFileUpload('bankProof', e)}
-                />
-                <div className="upload-icon">{uploadedFiles.bankProof ? '✓' : '↑'}</div>
-                <div className="upload-text">
-                  {uploadedFiles.bankProof ? 'Uploaded' : 'Click to upload'}
-                </div>
-                {uploadedFiles.bankProof && (
-                  <div className="file-name">{uploadedFiles.bankProof.name}</div>
-                )}
-              </div>
-            </div>
-
-            <div className="document-item">
-              <div className="document-info">
-                <h4>Profile Photo</h4>
-                <p>Upload a recent profile photo of the agent</p>
-              </div>
-              <div className={`upload-box ${uploadedFiles.profilePhoto ? 'uploaded' : ''}`}>
-                <input 
-                  type="file" 
-                  className="file-input" 
-                  accept=".jpg,.jpeg,.png"
-                  onChange={(e) => handleFileUpload('profilePhoto', e)}
-                />
-                <div className="upload-icon">{uploadedFiles.profilePhoto ? '✓' : '↑'}</div>
-                <div className="upload-text">
-                  {uploadedFiles.profilePhoto ? 'Uploaded' : 'Click to upload'}
-                </div>
-                {uploadedFiles.profilePhoto && (
-                  <div className="file-name">{uploadedFiles.profilePhoto.name}</div>
-                )}
-              </div>
-            </div>
+              ))
+            )}
           </div>
         </div>
       </div>

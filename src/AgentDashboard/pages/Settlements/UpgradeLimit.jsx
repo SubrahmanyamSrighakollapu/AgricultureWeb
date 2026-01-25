@@ -1,49 +1,187 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { toast } from 'react-toastify';
+import lookupService from '../../../services/lookupService';
 
 const UpgradeLimit = () => {
+  const [accountTypes, setAccountTypes] = useState([]);
+  const [bankNames, setBankNames] = useState([]);
+  const [formData, setFormData] = useState({
+    accountType: '',
+    bankAccountNo: '',
+    contactNo: '',
+    bankName: '',
+    ifscCode: '',
+    accountHolderName: '',
+    panNumber: ''
+  });
+
+  useEffect(() => {
+    fetchAccountTypes();
+    fetchBankNames();
+  }, []);
+
+  const fetchAccountTypes = async () => {
+    try {
+      const response = await lookupService.getAccountTypes();
+      if (response && response.status === 1 && response.result) {
+        setAccountTypes(response.result);
+      }
+    } catch (error) {
+      console.error('Error fetching account types:', error);
+    }
+  };
+
+  const fetchBankNames = async () => {
+    try {
+      const response = await lookupService.getBankNames();
+      if (response && response.status === 1 && response.result) {
+        setBankNames(response.result);
+      }
+    } catch (error) {
+      console.error('Error fetching bank names:', error);
+    }
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      // Simulate API call
+      console.log('Upgrading limit with data:', formData);
+      toast.success('Limit upgrade request submitted successfully!');
+      
+      // Reset form
+      setFormData({
+        accountType: '',
+        bankAccountNo: '',
+        contactNo: '',
+        bankName: '',
+        ifscCode: '',
+        accountHolderName: '',
+        panNumber: ''
+      });
+    } catch (error) {
+      console.error('Error upgrading limit:', error);
+      toast.error('Failed to submit limit upgrade request');
+    }
+  };
+
+  const handleCancel = () => {
+    setFormData({
+      accountType: '',
+      bankAccountNo: '',
+      contactNo: '',
+      bankName: '',
+      ifscCode: '',
+      accountHolderName: '',
+      panNumber: ''
+    });
+    toast.info('Form cancelled');
+  };
   return (
     <div className="container-fluid mt-4">
       <div className="row justify-content-center">
         <div className="col-auto">
           <div className="upgrade-card">
-            <form>
+            <form onSubmit={handleSubmit}>
               <div className="field">
                 <label>Settlement Account Type</label>
-                <select className="input select">
-                  <option>Select</option>
+                <select 
+                  className="input select"
+                  name="accountType"
+                  value={formData.accountType}
+                  onChange={handleInputChange}
+                  required
+                >
+                  <option value="">Select Account Type</option>
+                  {accountTypes.map((type) => (
+                    <option key={type.statusId} value={type.statusId}>
+                      {type.statusValue}
+                    </option>
+                  ))}
                 </select>
               </div>
 
               <div className="field">
                 <label>Bank A/C No.</label>
-                <input className="input" />
+                <input 
+                  className="input"
+                  name="bankAccountNo"
+                  value={formData.bankAccountNo}
+                  onChange={handleInputChange}
+                  placeholder="Enter bank account number"
+                  required
+                />
               </div>
 
               <div className="field">
                 <label>Contact No.</label>
-                <input className="input" />
+                <input 
+                  className="input"
+                  name="contactNo"
+                  value={formData.contactNo}
+                  onChange={handleInputChange}
+                  placeholder="Enter contact number"
+                  required
+                />
               </div>
 
               <div className="field">
                 <label>Bank Name</label>
-                <input className="input" />
-              </div>
-
-              <div className="field">
-                <label>IFSC Code</label>
-                <input className="input" />
-              </div>
-
-              <div className="field">
-                <label>A/C Holder Name</label>
-                <select className="input select">
-                  <option>Search Bank Name</option>
+                <select 
+                  className="input select"
+                  name="bankName"
+                  value={formData.bankName}
+                  onChange={handleInputChange}
+                  required
+                >
+                  <option value="">Select Bank Name</option>
+                  {bankNames.map((bank) => (
+                    <option key={bank.statusId} value={bank.statusId}>
+                      {bank.statusValue}
+                    </option>
+                  ))}
                 </select>
               </div>
 
               <div className="field">
+                <label>IFSC Code</label>
+                <input 
+                  className="input"
+                  name="ifscCode"
+                  value={formData.ifscCode}
+                  onChange={handleInputChange}
+                  placeholder="Enter IFSC code"
+                  required
+                />
+              </div>
+
+              <div className="field">
+                <label>A/C Holder Name</label>
+                <input 
+                  className="input"
+                  name="accountHolderName"
+                  value={formData.accountHolderName}
+                  onChange={handleInputChange}
+                  placeholder="Enter account holder name"
+                  required
+                />
+              </div>
+
+              <div className="field">
                 <label>PAN Number</label>
-                <input className="input" />
+                <input 
+                  className="input"
+                  name="panNumber"
+                  value={formData.panNumber}
+                  onChange={handleInputChange}
+                  placeholder="Enter PAN number"
+                  required
+                />
               </div>
 
               <div className="note">
@@ -51,10 +189,10 @@ const UpgradeLimit = () => {
               </div>
 
               <div className="button-row">
-                <button type="button" className="cancel-btn">
+                <button type="button" className="cancel-btn" onClick={handleCancel}>
                   Cancel
                 </button>
-                <button type="button" className="submit-btn">
+                <button type="submit" className="submit-btn">
                   Submit
                 </button>
               </div>

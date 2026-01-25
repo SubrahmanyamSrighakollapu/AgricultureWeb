@@ -1,23 +1,171 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { toast } from 'react-toastify';
+import lookupService from '../../../services/lookupService';
 
 const RegisterBankForm = () => {
+  const [accountTypes, setAccountTypes] = useState([]);
+  const [bankNames, setBankNames] = useState([]);
+  const [formData, setFormData] = useState({
+    accountType: '',
+    contactNo: '',
+    accountHolderName: '',
+    bankAccountNo: '',
+    confirmBankAccountNo: '',
+    bankName: '',
+    ifscCode: ''
+  });
+
+  useEffect(() => {
+    fetchAccountTypes();
+    fetchBankNames();
+  }, []);
+
+  const fetchAccountTypes = async () => {
+    try {
+      const response = await lookupService.getAccountTypes();
+      if (response && response.status === 1 && response.result) {
+        setAccountTypes(response.result);
+      }
+    } catch (error) {
+      console.error('Error fetching account types:', error);
+    }
+  };
+
+  const fetchBankNames = async () => {
+    try {
+      const response = await lookupService.getBankNames();
+      if (response && response.status === 1 && response.result) {
+        setBankNames(response.result);
+      }
+    } catch (error) {
+      console.error('Error fetching bank names:', error);
+    }
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    // Validate bank account numbers match
+    if (formData.bankAccountNo !== formData.confirmBankAccountNo) {
+      toast.error('Bank account numbers do not match');
+      return;
+    }
+    
+    try {
+      // Simulate API call
+      console.log('Registering bank with data:', formData);
+      toast.success('Bank registered successfully!');
+      
+      // Reset form
+      setFormData({
+        accountType: '',
+        contactNo: '',
+        accountHolderName: '',
+        bankAccountNo: '',
+        confirmBankAccountNo: '',
+        bankName: '',
+        ifscCode: ''
+      });
+    } catch (error) {
+      console.error('Error registering bank:', error);
+      toast.error('Failed to register bank');
+    }
+  };
+
+  const handleVerifyBeneficiary = () => {
+    if (!formData.bankAccountNo || !formData.ifscCode) {
+      toast.error('Please fill bank account number and IFSC code');
+      return;
+    }
+    toast.success('Beneficiary verified successfully!');
+  };
+
+  const handleCancel = () => {
+    setFormData({
+      accountType: '',
+      contactNo: '',
+      accountHolderName: '',
+      bankAccountNo: '',
+      confirmBankAccountNo: '',
+      bankName: '',
+      ifscCode: ''
+    });
+    toast.info('Form cancelled');
+  };
   return (
     <div className="card shadow-sm p-4 rounded-3">
-      <form>
-        <Input label="Settlement Account Type" type="select" />
-        <Input label="Contact No." />
-        <Input label="A/C Holder Name" />
-        <Input label="Bank A/C No." />
-        <Input label="Confirm Bank A/C No." />
-        <Input label="Bank Name" type="select" placeholder="Search Bank Name" />
-        <Input label="IFSC Code" />
+      <form onSubmit={handleSubmit}>
+        <Input 
+          label="Settlement Account Type" 
+          type="select" 
+          options={accountTypes}
+          name="accountType"
+          value={formData.accountType}
+          onChange={handleInputChange}
+          required
+        />
+        <Input 
+          label="Contact No." 
+          name="contactNo"
+          value={formData.contactNo}
+          onChange={handleInputChange}
+          placeholder="Enter contact number"
+          required
+        />
+        <Input 
+          label="A/C Holder Name" 
+          name="accountHolderName"
+          value={formData.accountHolderName}
+          onChange={handleInputChange}
+          placeholder="Enter account holder name"
+          required
+        />
+        <Input 
+          label="Bank A/C No." 
+          name="bankAccountNo"
+          value={formData.bankAccountNo}
+          onChange={handleInputChange}
+          placeholder="Enter bank account number"
+          required
+        />
+        <Input 
+          label="Confirm Bank A/C No." 
+          name="confirmBankAccountNo"
+          value={formData.confirmBankAccountNo}
+          onChange={handleInputChange}
+          placeholder="Confirm bank account number"
+          required
+        />
+        <Input 
+          label="Bank Name" 
+          type="select" 
+          placeholder="Search Bank Name" 
+          options={bankNames}
+          name="bankName"
+          value={formData.bankName}
+          onChange={handleInputChange}
+          required
+        />
+        <Input 
+          label="IFSC Code" 
+          name="ifscCode"
+          value={formData.ifscCode}
+          onChange={handleInputChange}
+          placeholder="Enter IFSC code"
+          required
+        />
 
         <div className="d-flex justify-content-between align-items-center mt-4">
-          <button type="button" style={styles.outlineBtn}>Cancel</button>
-          <button type="button" style={styles.registerBtn}>
+          <button type="button" style={styles.outlineBtn} onClick={handleCancel}>Cancel</button>
+          <button type="submit" style={styles.registerBtn}>
             Register <br /> Beneficiary
           </button>
-          <button type="button" style={styles.outlineBtn}>
+          <button type="button" style={styles.outlineBtn} onClick={handleVerifyBeneficiary}>
             Verify <br /> Beneficiary
           </button>
         </div>
@@ -26,15 +174,33 @@ const RegisterBankForm = () => {
   );
 };
 
-const Input = ({ label, type = "input", placeholder = "Select" }) => (
+const Input = ({ label, type = "input", placeholder = "Select", options = [], name, value, onChange, required = false }) => (
   <div className="mb-3">
     <label className="form-label">{label}</label>
     {type === "select" ? (
-      <select className="form-select">
-        <option>{placeholder}</option>
+      <select 
+        className="form-select"
+        name={name}
+        value={value}
+        onChange={onChange}
+        required={required}
+      >
+        <option value="">{placeholder}</option>
+        {options.map((option) => (
+          <option key={option.statusId} value={option.statusId}>
+            {option.statusValue}
+          </option>
+        ))}
       </select>
     ) : (
-      <input className="form-control" />
+      <input 
+        className="form-control"
+        name={name}
+        value={value}
+        onChange={onChange}
+        placeholder={placeholder}
+        required={required}
+      />
     )}
   </div>
 );

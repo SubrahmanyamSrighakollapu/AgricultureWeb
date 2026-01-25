@@ -67,11 +67,41 @@ const Dashboard = () => {
           margin-left: 12px;
           cursor: pointer;
           font-size: 14px;
+          transition: all 0.2s ease;
         }
 
-        .btn-agent { background-color: #4159D3; color: white; }
-        .btn-user { background-color: #12AE0C; color: white; }
-        .btn-employee { background-color: #CA28B7; color: white; }
+        .btn-agent { 
+          background-color: #4159D3; 
+          color: white; 
+        }
+        
+        .btn-agent:hover {
+          background-color: #3146b8;
+          transform: translateY(-1px);
+          box-shadow: 0 4px 12px rgba(65, 89, 211, 0.3);
+        }
+        
+        .btn-user { 
+          background-color: #12AE0C; 
+          color: white; 
+        }
+        
+        .btn-user:hover {
+          background-color: #0f9209;
+          transform: translateY(-1px);
+          box-shadow: 0 4px 12px rgba(18, 174, 12, 0.3);
+        }
+        
+        .btn-employee { 
+          background-color: #CA28B7; 
+          color: white; 
+        }
+        
+        .btn-employee:hover {
+          background-color: #b0229c;
+          transform: translateY(-1px);
+          box-shadow: 0 4px 12px rgba(202, 40, 183, 0.3);
+        }
 
         .overview-cards,
         .financial-cards {

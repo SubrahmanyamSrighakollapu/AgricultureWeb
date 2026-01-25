@@ -1,65 +1,49 @@
-// UsersList.jsx
+// AgentsList.jsx
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Search, Plus, Edit, Trash2, X, Power, PowerOff } from 'lucide-react';
 import { toast } from 'react-toastify';
-import userService from '../../../services/userService';
+import agentService from '../../../services/agentService';
 import lookupService from '../../../services/lookupService';
 
-const UsersList = () => {
+const AgentsList = () => {
   const navigate = useNavigate();
-  const [users, setUsers] = useState([]);
+  const [agents, setAgents] = useState([]);
   const [loading, setLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
-  const [roleFilter, setRoleFilter] = useState('');
   const [statusFilter, setStatusFilter] = useState('');
   const [activeFilter, setActiveFilter] = useState('');
   const [showUpdatePopup, setShowUpdatePopup] = useState(false);
   const [showConfirmPopup, setShowConfirmPopup] = useState(false);
-  const [selectedUser, setSelectedUser] = useState(null);
-  const [editingUser, setEditingUser] = useState(null);
-  const [roles, setRoles] = useState([]);
+  const [selectedAgent, setSelectedAgent] = useState(null);
+  const [editingAgent, setEditingAgent] = useState(null);
   const [statusTypes, setStatusTypes] = useState([]);
   const [formData, setFormData] = useState({
-    fullName: '',
+    agentName: '',
     email: '',
     mobile: '',
-    role: '',
-    statusType: '',
-    aadharNo: '',
-    panNo: ''
+    businessName: '',
+    address: '',
+    statusType: ''
   });
 
   useEffect(() => {
-    fetchUsers();
-    fetchRoles();
+    fetchAgents();
     fetchStatusTypes();
   }, []);
 
-  const fetchUsers = async () => {
+  const fetchAgents = async () => {
     try {
       setLoading(true);
-      const response = await userService.getAllUsers();
+      const response = await agentService.getAllAgents();
       if (response && response.status === 1 && response.result) {
-        setUsers(response.result);
+        setAgents(response.result);
       }
     } catch (error) {
-      console.error('Error fetching users:', error);
-      toast.error('Failed to fetch users');
+      console.error('Error fetching agents:', error);
+      toast.error('Failed to fetch agents');
     } finally {
       setLoading(false);
-    }
-  };
-
-  const fetchRoles = async () => {
-    try {
-      const payload = { roleId: 0, isEmployee: false, isActive: true };
-      const response = await lookupService.getUserRoleMaster(payload);
-      if (response.status === 1 && response.result) {
-        setRoles(response.result);
-      }
-    } catch (error) {
-      console.error('Error fetching roles:', error);
     }
   };
 
@@ -74,16 +58,15 @@ const UsersList = () => {
     }
   };
 
-  const handleEditUser = (user) => {
-    setEditingUser(user);
+  const handleEditAgent = (agent) => {
+    setEditingAgent(agent);
     setFormData({
-      fullName: user.userFullName,
-      email: user.emailAddress,
-      mobile: user.contactNo,
-      role: user.roleName,
-      statusType: user.statusName,
-      aadharNo: user.aadharNo,
-      panNo: user.panNo
+      agentName: agent.agentName || '',
+      email: agent.email || '',
+      mobile: agent.mobile || '',
+      businessName: agent.businessName || '',
+      address: agent.address || '',
+      statusType: agent.statusName || ''
     });
     setShowUpdatePopup(true);
   };
@@ -93,42 +76,36 @@ const UsersList = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleUpdateUser = async (e) => {
+  const handleUpdateAgent = async (e) => {
     e.preventDefault();
     try {
       setLoading(true);
-      const selectedRole = roles.find(role => role.roleName === formData.role);
       const selectedStatus = statusTypes.find(status => status.statusValue === formData.statusType);
       
-      const userData = {
-        userId: editingUser.userId,
-        fullName: formData.fullName,
+      const agentData = {
+        agentId: editingAgent.agentId,
+        agentName: formData.agentName,
         email: formData.email,
-        contactNo: formData.mobile,
-        password: "N/A",
-        isAutoPassword: true,
-        roleId: selectedRole ? selectedRole.roleId : editingUser.roleId,
-        aadharNo: formData.aadharNo,
-        panNo: formData.panNo,
-        statusId: selectedStatus ? selectedStatus.statusId : editingUser.statusId,
-        isAadharVerify: editingUser.isAadharVerify === 1,
-        panNoVerify: editingUser.panNoVerify === 1,
-        isActive: editingUser.isActive === 1
+        mobile: formData.mobile,
+        businessName: formData.businessName,
+        address: formData.address,
+        statusId: selectedStatus ? selectedStatus.statusId : editingAgent.statusId,
+        isActive: editingAgent.isActive
       };
       
-      const response = await userService.createUser(userData);
+      const response = await agentService.updateAgent(editingAgent.agentId, agentData);
       
       if (response.status === 1) {
-        toast.success('User updated successfully!');
+        toast.success('Agent updated successfully!');
         setShowUpdatePopup(false);
-        setEditingUser(null);
-        fetchUsers();
+        setEditingAgent(null);
+        fetchAgents();
       } else {
-        toast.error('Failed to update user');
+        toast.error('Failed to update agent');
       }
     } catch (error) {
-      console.error('Error updating user:', error);
-      toast.error('Failed to update user');
+      console.error('Error updating agent:', error);
+      toast.error('Failed to update agent');
     } finally {
       setLoading(false);
     }
@@ -136,41 +113,40 @@ const UsersList = () => {
 
   const closePopup = () => {
     setShowUpdatePopup(false);
-    setEditingUser(null);
+    setEditingAgent(null);
     setFormData({
-      fullName: '',
+      agentName: '',
       email: '',
       mobile: '',
-      role: '',
-      statusType: '',
-      aadharNo: '',
-      panNo: ''
+      businessName: '',
+      address: '',
+      statusType: ''
     });
   };
 
-  const handleToggleUserStatus = (user) => {
-    setSelectedUser(user);
+  const handleToggleAgentStatus = (agent) => {
+    setSelectedAgent(agent);
     setShowConfirmPopup(true);
   };
 
   const confirmToggleStatus = async () => {
     try {
       setLoading(true);
-      const newStatus = selectedUser.isActive === 1 ? false : true;
-      const response = await userService.updateUserStatus(selectedUser.userId, { status: newStatus });
+      const newStatus = selectedAgent.isActive === 1 ? false : true;
+      const response = await agentService.updateAgentStatus(selectedAgent.agentId, { status: newStatus });
       
       if (response.status === 1) {
-        const action = selectedUser.isActive === 1 ? 'deactivated' : 'activated';
-        toast.success(`User ${action} successfully!`);
+        const action = selectedAgent.isActive === 1 ? 'deactivated' : 'activated';
+        toast.success(`Agent ${action} successfully!`);
         setShowConfirmPopup(false);
-        setSelectedUser(null);
-        fetchUsers();
+        setSelectedAgent(null);
+        fetchAgents();
       } else {
-        toast.error('Failed to update user status');
+        toast.error('Failed to update agent status');
       }
     } catch (error) {
-      console.error('Error updating user status:', error);
-      toast.error('Failed to update user status');
+      console.error('Error updating agent status:', error);
+      toast.error('Failed to update agent status');
     } finally {
       setLoading(false);
     }
@@ -178,11 +154,11 @@ const UsersList = () => {
 
   const closeConfirmPopup = () => {
     setShowConfirmPopup(false);
-    setSelectedUser(null);
+    setSelectedAgent(null);
   };
 
-  const handleCreateUser = () => {
-    navigate('/admin/user-management/create-user');
+  const handleCreateAgent = () => {
+    navigate('/admin/agent-management/add-agent');
   };
 
   const getStatusBadgeClass = (statusName) => {
@@ -192,24 +168,24 @@ const UsersList = () => {
     return 'status-rejected';
   };
 
-  const filteredUsers = users.filter(user => {
-    const matchesSearch = user.userFullName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         user.emailAddress?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         user.contactNo?.includes(searchTerm);
-    const matchesRole = !roleFilter || user.roleName === roleFilter;
-    const matchesStatus = !statusFilter || user.statusName === statusFilter;
+  const filteredAgents = agents.filter(agent => {
+    const matchesSearch = agent.agentName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         agent.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         agent.mobile?.includes(searchTerm) ||
+                         agent.businessName?.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesStatus = !statusFilter || agent.statusName === statusFilter;
     const matchesActive = !activeFilter || 
-                         (activeFilter === 'active' && user.isActive === 1) ||
-                         (activeFilter === 'inactive' && user.isActive === 0);
-    return matchesSearch && matchesRole && matchesStatus && matchesActive;
+                         (activeFilter === 'active' && agent.isActive === 1) ||
+                         (activeFilter === 'inactive' && agent.isActive === 0);
+    return matchesSearch && matchesStatus && matchesActive;
   });
 
-  const uniqueRoles = [...new Set(users.map(user => user.roleName).filter(Boolean))];
-  const uniqueStatuses = [...new Set(users.map(user => user.statusName).filter(Boolean))];
+  const uniqueStatuses = [...new Set(agents.map(agent => agent.statusName).filter(Boolean))];
+
   return (
     <>
       <style>{`
-        .users-list-page {
+        .agents-list-page {
           padding: 24px 32px;
           background: #f5f7fa;
           min-height: 100vh;
@@ -460,7 +436,8 @@ const UsersList = () => {
         }
 
         .form-group input,
-        .form-group select {
+        .form-group select,
+        .form-group textarea {
           padding: 12px 16px;
           border: 1px solid #e2e8f0;
           border-radius: 8px;
@@ -468,8 +445,14 @@ const UsersList = () => {
           background: white;
         }
 
+        .form-group textarea {
+          resize: vertical;
+          min-height: 80px;
+        }
+
         .form-group input:focus,
-        .form-group select:focus {
+        .form-group select:focus,
+        .form-group textarea:focus {
           outline: none;
           border-color: #10b981;
           box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
@@ -560,12 +543,12 @@ const UsersList = () => {
         }
       `}</style>
 
-      <div className="users-list-page">
+      <div className="agents-list-page">
         <div className="page-header">
-          <h1 className="page-title">User List</h1>
-          <button className="create-btn" onClick={handleCreateUser}>
+          <h1 className="page-title">Agent List</h1>
+          <button className="create-btn" onClick={handleCreateAgent}>
             <Plus size={18} />
-            Create New User
+            Add New Agent
           </button>
         </div>
 
@@ -575,18 +558,11 @@ const UsersList = () => {
             <input
               type="text"
               className="search-input"
-              placeholder="Search by name, email, mobile..."
+              placeholder="Search by name, email, mobile, business..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
-
-          <select className="select" value={roleFilter} onChange={(e) => setRoleFilter(e.target.value)}>
-            <option value="">All Role</option>
-            {uniqueRoles.map(role => (
-              <option key={role} value={role}>{role}</option>
-            ))}
-          </select>
 
           <select className="select" value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
             <option value="">All Status</option>
@@ -596,7 +572,7 @@ const UsersList = () => {
           </select>
 
           <select className="select" value={activeFilter} onChange={(e) => setActiveFilter(e.target.value)}>
-            <option value="">All Users</option>
+            <option value="">All Agents</option>
             <option value="active">Active</option>
             <option value="inactive">Inactive</option>
           </select>
@@ -606,12 +582,12 @@ const UsersList = () => {
           <table className="table">
             <thead>
               <tr>
-                <th>User ID</th>
+                <th>Agent ID</th>
                 <th>Name</th>
-                <th>Role</th>
+                <th>Business</th>
                 <th>Mobile</th>
-                <th>Wallet Balance</th>
-                <th>Status Type</th>
+                <th>Address</th>
+                <th>Status</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -619,38 +595,38 @@ const UsersList = () => {
               {loading ? (
                 <tr>
                   <td colSpan="7" style={{ textAlign: 'center', padding: '40px' }}>
-                    Loading users...
+                    Loading agents...
                   </td>
                 </tr>
-              ) : filteredUsers.length === 0 ? (
+              ) : filteredAgents.length === 0 ? (
                 <tr>
                   <td colSpan="7" style={{ textAlign: 'center', padding: '40px' }}>
-                    No users found
+                    No agents found
                   </td>
                 </tr>
               ) : (
-                filteredUsers.map((user) => (
-                  <tr key={user.userManagementId}>
-                    <td>USER-{user.userId}</td>
-                    <td>{user.userFullName}</td>
-                    <td>{user.roleName}</td>
-                    <td>+91 {user.contactNo}</td>
-                    <td>₹0</td>
+                filteredAgents.map((agent) => (
+                  <tr key={agent.agentId}>
+                    <td>AGENT-{agent.agentId}</td>
+                    <td>{agent.agentName || 'N/A'}</td>
+                    <td>{agent.businessName || 'N/A'}</td>
+                    <td>+91 {agent.mobile || 'N/A'}</td>
+                    <td>{agent.address || 'N/A'}</td>
                     <td>
-                      <span className={`status-badge ${getStatusBadgeClass(user.statusName)}`}>
-                        {user.statusName}
+                      <span className={`status-badge ${getStatusBadgeClass(agent.statusName)}`}>
+                        {agent.statusName || 'N/A'}
                       </span>
                     </td>
                     <td className="action-icons">
-                      <button className="action-btn" onClick={() => handleEditUser(user)}>
+                      <button className="action-btn" onClick={() => handleEditAgent(agent)}>
                         <Edit size={18} />
                       </button>
                       <button 
                         className="action-btn" 
-                        onClick={() => handleToggleUserStatus(user)}
-                        title={user.isActive === 1 ? 'Deactivate User' : 'Activate User'}
+                        onClick={() => handleToggleAgentStatus(agent)}
+                        title={agent.isActive === 1 ? 'Deactivate Agent' : 'Activate Agent'}
                       >
-                        {user.isActive === 1 ? <PowerOff size={18} /> : <Power size={18} />}
+                        {agent.isActive === 1 ? <PowerOff size={18} /> : <Power size={18} />}
                       </button>
                       <button className="action-btn"><Trash2 size={18} /></button>
                     </td>
@@ -662,7 +638,7 @@ const UsersList = () => {
         </div>
 
         <div className="pagination">
-          <div>Showing {filteredUsers.length} of {users.length} users</div>
+          <div>Showing {filteredAgents.length} of {agents.length} agents</div>
           <div className="pagination-numbers">
             <div className="page-number active">1</div>
           </div>
@@ -672,20 +648,20 @@ const UsersList = () => {
           <div className="popup-overlay" onClick={closePopup}>
             <div className="popup" onClick={(e) => e.stopPropagation()}>
               <div className="popup-header">
-                <h2 className="popup-title">Update User</h2>
+                <h2 className="popup-title">Update Agent</h2>
                 <button className="close-btn" onClick={closePopup}>
                   <X size={24} />
                 </button>
               </div>
               
-              <form onSubmit={handleUpdateUser}>
+              <form onSubmit={handleUpdateAgent}>
                 <div className="form-grid">
                   <div className="form-group">
-                    <label>Full Name</label>
+                    <label>Agent Name</label>
                     <input
                       type="text"
-                      name="fullName"
-                      value={formData.fullName}
+                      name="agentName"
+                      value={formData.agentName}
                       onChange={handleInputChange}
                       required
                     />
@@ -714,20 +690,14 @@ const UsersList = () => {
                   </div>
                   
                   <div className="form-group">
-                    <label>Role</label>
-                    <select
-                      name="role"
-                      value={formData.role}
+                    <label>Business Name</label>
+                    <input
+                      type="text"
+                      name="businessName"
+                      value={formData.businessName}
                       onChange={handleInputChange}
                       required
-                    >
-                      <option value="">Select Role</option>
-                      {roles.map((role) => (
-                        <option key={role.roleId} value={role.roleName}>
-                          {role.roleName}
-                        </option>
-                      ))}
-                    </select>
+                    />
                   </div>
                   
                   <div className="form-group">
@@ -747,24 +717,13 @@ const UsersList = () => {
                     </select>
                   </div>
                   
-                  <div className="form-group">
-                    <label>Aadhaar Number</label>
-                    <input
-                      type="text"
-                      name="aadharNo"
-                      value={formData.aadharNo}
+                  <div className="form-group full-width">
+                    <label>Address</label>
+                    <textarea
+                      name="address"
+                      value={formData.address}
                       onChange={handleInputChange}
-                      required
-                    />
-                  </div>
-                  
-                  <div className="form-group">
-                    <label>PAN Number</label>
-                    <input
-                      type="text"
-                      name="panNo"
-                      value={formData.panNo}
-                      onChange={handleInputChange}
+                      placeholder="Enter full address"
                       required
                     />
                   </div>
@@ -775,7 +734,7 @@ const UsersList = () => {
                     Cancel
                   </button>
                   <button type="submit" className="btn-update" disabled={loading}>
-                    {loading ? 'Updating...' : 'Update User'}
+                    {loading ? 'Updating...' : 'Update Agent'}
                   </button>
                 </div>
               </form>
@@ -783,14 +742,14 @@ const UsersList = () => {
           </div>
         )}
 
-        {showConfirmPopup && selectedUser && (
+        {showConfirmPopup && selectedAgent && (
           <div className="popup-overlay" onClick={closeConfirmPopup}>
             <div className="confirm-popup" onClick={(e) => e.stopPropagation()}>
               <h3 className="confirm-title">
-                {selectedUser.isActive === 1 ? 'Deactivate User' : 'Activate User'}
+                {selectedAgent.isActive === 1 ? 'Deactivate Agent' : 'Activate Agent'}
               </h3>
               <p className="confirm-message">
-                Are you sure you want to {selectedUser.isActive === 1 ? 'deactivate' : 'activate'} user <strong>{selectedUser.userFullName}</strong>?
+                Are you sure you want to {selectedAgent.isActive === 1 ? 'deactivate' : 'activate'} agent <strong>{selectedAgent.agentName}</strong>?
               </p>
               <div className="confirm-actions">
                 <button className="btn-yes" onClick={confirmToggleStatus} disabled={loading}>
@@ -808,4 +767,4 @@ const UsersList = () => {
   );
 };
 
-export default UsersList;
+export default AgentsList;

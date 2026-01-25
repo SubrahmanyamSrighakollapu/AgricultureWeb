@@ -29,7 +29,9 @@ import {
   MdSecurity,
   MdArticle,
   MdUndo,
-  MdKeyboardArrowRight
+  MdKeyboardArrowRight,
+  MdSupervisorAccount,
+  MdGroupAdd
 } from 'react-icons/md';
 
 const AdminSidebar = () => {
@@ -75,6 +77,15 @@ const AdminSidebar = () => {
         { icon: MdList, title: 'User List', path: '/admin/user-management/users-list' },
         { icon: MdAccountBalance, title: 'Add Wallet', path: '/admin/user-management/add-wallet' },
         { icon: MdLock, title: 'Hold Funds', path: '/admin/user-management/hold-funds' }
+      ]
+    },
+    { 
+      icon: MdSupervisorAccount, 
+      title: 'Agent Management', 
+      hasDropdown: true,
+      subItems: [
+        { icon: MdGroupAdd, title: 'Add Agent', path: '/admin/agent-management/add-agent' },
+        { icon: MdList, title: 'Agent List', path: '/admin/agent-management/agents-list' }
       ]
     },
     { 

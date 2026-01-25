@@ -1,47 +1,166 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { toast } from 'react-toastify';
+import lookupService from '../../../services/lookupService';
 
 const DeleteBank = () => {
+  const [accountTypes, setAccountTypes] = useState([]);
+  const [bankNames, setBankNames] = useState([]);
+  const [formData, setFormData] = useState({
+    accountType: '',
+    bankAccountNo: '',
+    bankName: '',
+    ifscCode: '',
+    accountHolderName: ''
+  });
+
+  useEffect(() => {
+    fetchAccountTypes();
+    fetchBankNames();
+  }, []);
+
+  const fetchAccountTypes = async () => {
+    try {
+      const response = await lookupService.getAccountTypes();
+      if (response && response.status === 1 && response.result) {
+        setAccountTypes(response.result);
+      }
+    } catch (error) {
+      console.error('Error fetching account types:', error);
+    }
+  };
+
+  const fetchBankNames = async () => {
+    try {
+      const response = await lookupService.getBankNames();
+      if (response && response.status === 1 && response.result) {
+        setBankNames(response.result);
+      }
+    } catch (error) {
+      console.error('Error fetching bank names:', error);
+    }
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      // Simulate API call
+      console.log('Deleting bank with data:', formData);
+      toast.success('Bank deleted successfully!');
+      
+      // Reset form
+      setFormData({
+        accountType: '',
+        bankAccountNo: '',
+        bankName: '',
+        ifscCode: '',
+        accountHolderName: ''
+      });
+    } catch (error) {
+      console.error('Error deleting bank:', error);
+      toast.error('Failed to delete bank');
+    }
+  };
+
+  const handleCancel = () => {
+    setFormData({
+      accountType: '',
+      bankAccountNo: '',
+      bankName: '',
+      ifscCode: '',
+      accountHolderName: ''
+    });
+    toast.info('Form cancelled');
+  };
   return (
     <div className="container-fluid mt-4">
       <div className="row justify-content-center">
         <div className="col-auto">
           <div className="delete-card">
-            <form>
+            <form onSubmit={handleSubmit}>
               <div className="mb-3">
                 <label className="form-label">Settlement Account Type</label>
-                <select className="custom-input custom-select">
-                  <option>Select</option>
+                <select 
+                  className="custom-input custom-select"
+                  name="accountType"
+                  value={formData.accountType}
+                  onChange={handleInputChange}
+                  required
+                >
+                  <option value="">Select Account Type</option>
+                  {accountTypes.map((type) => (
+                    <option key={type.statusId} value={type.statusId}>
+                      {type.statusValue}
+                    </option>
+                  ))}
                 </select>
               </div>
 
               <div className="mb-3">
                 <label className="form-label">Bank A/C No.</label>
-                <select className="custom-input custom-select">
-                  <option>Select</option>
+                <select 
+                  className="custom-input custom-select"
+                  name="bankAccountNo"
+                  value={formData.bankAccountNo}
+                  onChange={handleInputChange}
+                  required
+                >
+                  <option value="">Select Account Number</option>
                 </select>
               </div>
 
               <div className="mb-3">
                 <label className="form-label">Bank Name</label>
-                <input className="custom-input" />
+                <select 
+                  className="custom-input custom-select"
+                  name="bankName"
+                  value={formData.bankName}
+                  onChange={handleInputChange}
+                  required
+                >
+                  <option value="">Select Bank Name</option>
+                  {bankNames.map((bank) => (
+                    <option key={bank.statusId} value={bank.statusId}>
+                      {bank.statusValue}
+                    </option>
+                  ))}
+                </select>
               </div>
 
               <div className="mb-3">
                 <label className="form-label">IFSC Code</label>
-                <input className="custom-input" />
+                <input 
+                  className="custom-input"
+                  name="ifscCode"
+                  value={formData.ifscCode}
+                  onChange={handleInputChange}
+                  placeholder="Enter IFSC code"
+                  required
+                />
               </div>
 
               <div className="mb-5">
                 <label className="form-label">A/C Holder Name</label>
-                <input className="custom-input" />
+                <input 
+                  className="custom-input"
+                  name="accountHolderName"
+                  value={formData.accountHolderName}
+                  onChange={handleInputChange}
+                  placeholder="Enter account holder name"
+                  required
+                />
               </div>
               
               <div className="button-row">
-                <button type="button" className="cancel-btn">
+                <button type="button" className="cancel-btn" onClick={handleCancel}>
                   Cancel
                 </button>
 
-                <button type="button" className="submit-btn">
+                <button type="submit" className="submit-btn">
                   Submit
                 </button>
               </div>

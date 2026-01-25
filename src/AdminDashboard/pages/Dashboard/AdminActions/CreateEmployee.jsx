@@ -1,8 +1,200 @@
 // src/AdminDashboard/pages/CreateEmployee/CreateEmployee.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import lookupService from '../../../../services/lookupService';
+import employeeService from '../../../../services/employeeService';
 
 const CreateEmployee = () => {
   const [step, setStep] = useState(1);
+  const [autoGeneratePassword, setAutoGeneratePassword] = useState(true);
+  const [departments, setDepartments] = useState([]);
+  const [roles, setRoles] = useState([]);
+  const [statusTypes, setStatusTypes] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    fullName: '',
+    email: '',
+    mobile: '',
+    employeeId: '',
+    department: '',
+    roleType: '',
+    statusType: '',
+    joiningDate: '',
+    shift: '',
+    password: ''
+  });
+  const [permissions, setPermissions] = useState({
+    isViewOrder: false,
+    isManageInventory: false,
+    isPaymentApproval: false,
+    isViewReports: false
+  });
+
+  useEffect(() => {
+    fetchDepartments();
+    fetchRoles();
+    fetchStatusTypes();
+  }, []);
+
+  const fetchDepartments = async () => {
+    try {
+      setLoading(true);
+      const response = await lookupService.getEmployeeDepartmentTypes();
+      if (response.status === 1 && response.result) {
+        setDepartments(response.result);
+      }
+    } catch (error) {
+      console.error('Error fetching departments:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchRoles = async () => {
+    try {
+      const payload = {
+        roleId: 0,
+        isEmployee: true,
+        isActive: true
+      };
+      const response = await lookupService.getUserRoleMaster(payload);
+      if (response.status === 1 && response.result) {
+        setRoles(response.result);
+      }
+    } catch (error) {
+      console.error('Error fetching roles:', error);
+    }
+  };
+
+  const fetchStatusTypes = async () => {
+    try {
+      const response = await lookupService.getDefaultStatusTypes();
+      if (response.status === 1 && response.result) {
+        setStatusTypes(response.result);
+      }
+    } catch (error) {
+      console.error('Error fetching status types:', error);
+    }
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    if (name === 'statusType') {
+      const selectedStatus = statusTypes.find(status => status.statusValue === value);
+      setFormData(prev => ({
+        ...prev,
+        [name]: value,
+        statusId: selectedStatus ? selectedStatus.statusId : ''
+      }));
+    } else {
+      setFormData(prev => ({
+        ...prev,
+        [name]: value
+      }));
+    }
+  };
+
+  const handlePermissionChange = (permission) => {
+    setPermissions(prev => ({
+      ...prev,
+      [permission]: !prev[permission]
+    }));
+  };
+
+  const resetForm = () => {
+    setFormData({
+      fullName: '',
+      email: '',
+      mobile: '',
+      employeeId: '',
+      department: '',
+      roleType: '',
+      joiningDate: '',
+      shift: '',
+      password: ''
+    });
+    setPermissions({
+      isViewOrder: false,
+      isManageInventory: false,
+      isPaymentApproval: false,
+      isViewReports: false
+    });
+    setAutoGeneratePassword(true);
+    setStep(1);
+  };
+
+  const handleSaveEmployee = async (saveAndAddAnother = false) => {
+    setLoading(true);
+    try {
+      const selectedRole = roles.find(role => role.roleName === formData.roleType);
+      const selectedDepartment = departments.find(dept => dept.statusValue === formData.department);
+      
+      const employeeData = {
+        userId: 0,
+        fullName: formData.fullName,
+        email: formData.email,
+        contactNo: formData.mobile,
+        password: autoGeneratePassword ? "N/A" : formData.password,
+        isAutoPassword: autoGeneratePassword,
+        roleId: selectedRole ? selectedRole.roleId : 0,
+        employeeCode: formData.employeeId,
+        joiningDate: formData.joiningDate,
+        shifts: formData.shift,
+        departmentId: selectedDepartment ? selectedDepartment.statusId : 0,
+        isViewOrder: permissions.isViewOrder,
+        isPaymentApproval: permissions.isPaymentApproval,
+        isManageInventory: permissions.isManageInventory,
+        isViewReports: permissions.isViewReports,
+        statusId: formData.statusId || statusTypes[0]?.statusId || 0
+      };
+      
+      const response = await employeeService.onboardEmployee(employeeData);
+      
+      if (response.status === 1) {
+        showToast('Employee created successfully!', 'success');
+        
+        if (saveAndAddAnother) {
+          resetForm();
+        } else {
+          resetForm();
+        }
+      } else {
+        showToast('Failed to create employee. Please try again.', 'error');
+      }
+    } catch (error) {
+      console.error('Error creating employee:', error);
+      showToast('Failed to create employee. Please try again.', 'error');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const showToast = (message, type) => {
+    const toast = document.createElement('div');
+    toast.className = `toast toast-${type}`;
+    toast.textContent = message;
+    
+    toast.style.cssText = `
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 12px 20px;
+      border-radius: 8px;
+      color: white;
+      font-weight: 600;
+      z-index: 10000;
+      animation: slideIn 0.3s ease-out;
+      ${type === 'success' ? 'background: #10b981;' : 'background: #ef4444;'}
+    `;
+    
+    document.body.appendChild(toast);
+    
+    setTimeout(() => {
+      toast.style.animation = 'slideOut 0.3s ease-out';
+      setTimeout(() => {
+        document.body.removeChild(toast);
+      }, 300);
+    }, 3000);
+  };
 
   const nextStep = () => setStep(2);
 
@@ -71,7 +263,18 @@ const CreateEmployee = () => {
           transition: border-color 0.2s;
         }
 
-        input:focus {
+        select {
+          padding: 12px 16px;
+          border: 1px solid #e2e8f0;
+          border-radius: 8px;
+          font-size: 15px;
+          background-color: #fff;
+          transition: border-color 0.2s;
+          cursor: pointer;
+        }
+
+        input:focus,
+        select:focus {
           outline: none;
           border-color: #6366f1;
           box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
@@ -143,6 +346,88 @@ const CreateEmployee = () => {
           background-color: #edf2f7;
         }
 
+        /* Toast Animations */
+        @keyframes slideIn {
+          from {
+            transform: translateX(100%);
+            opacity: 0;
+          }
+          to {
+            transform: translateX(0);
+            opacity: 1;
+          }
+        }
+
+        @keyframes slideOut {
+          from {
+            transform: translateX(0);
+            opacity: 1;
+          }
+          to {
+            transform: translateX(100%);
+            opacity: 0;
+          }
+        }
+
+        /* Toggle Switch */
+        .toggle-switch {
+          position: relative;
+          display: inline-block;
+          width: 52px;
+          height: 28px;
+        }
+
+        .toggle-switch input {
+          opacity: 0;
+          width: 0;
+          height: 0;
+        }
+
+        .slider {
+          position: absolute;
+          cursor: pointer;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-color: #cbd5e0;
+          transition: .3s;
+          border-radius: 34px;
+        }
+
+        .slider:before {
+          position: absolute;
+          content: "";
+          height: 22px;
+          width: 22px;
+          left: 3px;
+          bottom: 3px;
+          background-color: white;
+          transition: .3s;
+          border-radius: 50%;
+        }
+
+        input:checked + .slider {
+          background-color: #10b981;
+        }
+
+        input:checked + .slider:before {
+          transform: translateX(24px);
+        }
+
+        .toggle-group {
+          display: flex;
+          align-items: center;
+          gap: 16px;
+          margin: 24px 0;
+        }
+
+        .toggle-label {
+          font-size: 15px;
+          font-weight: 500;
+          color: #4a5568;
+        }
+
         @media (max-width: 768px) {
           .form-grid {
             grid-template-columns: 1fr;
@@ -173,50 +458,162 @@ const CreateEmployee = () => {
             <div className="form-grid">
               <div className="form-group">
                 <label>Full Name</label>
-                <input type="text" placeholder="Enter full name" />
+                <input 
+                  type="text" 
+                  name="fullName"
+                  value={formData.fullName}
+                  onChange={handleInputChange}
+                  placeholder="Enter full name" 
+                />
               </div>
 
               <div className="form-group">
                 <label>Email ID</label>
-                <input type="email" placeholder="Enter email ID" />
+                <input 
+                  type="email" 
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  placeholder="Enter email ID" 
+                />
               </div>
 
               <div className="form-group">
                 <label>Mobile Number</label>
-                <input type="text" placeholder="Enter mobile number" />
+                <input 
+                  type="text" 
+                  name="mobile"
+                  value={formData.mobile}
+                  onChange={handleInputChange}
+                  placeholder="Enter mobile number" 
+                />
               </div>
 
               <div className="form-group">
-                <label>Employee ID</label>
-                <input type="text" placeholder="Enter Employee ID" />
+                <label>Employee Code</label>
+                <input 
+                  type="text" 
+                  name="employeeId"
+                  value={formData.employeeId}
+                  onChange={handleInputChange}
+                  placeholder="Enter Employee Code" 
+                />
               </div>
 
               <div className="form-group">
                 <label>Department</label>
-                <input type="text" placeholder="Enter Department" />
+                <select 
+                  name="department"
+                  value={formData.department}
+                  onChange={handleInputChange}
+                  disabled={loading}
+                >
+                  <option value="">Select Department</option>
+                  {departments.map((dept) => (
+                    <option key={dept.statusId} value={dept.statusValue}>
+                      {dept.statusValue}
+                    </option>
+                  ))}
+                </select>
               </div>
 
               <div className="form-group">
                 <label>Role Type</label>
-                <input type="text" placeholder="Enter Role Type" />
+                <select 
+                  name="roleType"
+                  value={formData.roleType}
+                  onChange={handleInputChange}
+                >
+                  <option value="">Select Role Type</option>
+                  {roles.map((role) => (
+                    <option key={role.roleId} value={role.roleName}>
+                      {role.roleName}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="form-group">
+                <label>Status Type</label>
+                <select 
+                  name="statusType"
+                  value={formData.statusType}
+                  onChange={handleInputChange}
+                >
+                  <option value="">Select Status Type</option>
+                  {statusTypes.map((status) => (
+                    <option key={status.statusId} value={status.statusValue}>
+                      {status.statusValue}
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
 
+            {/* Auto-generate password toggle */}
+            <div className="toggle-group">
+              <span className="toggle-label">Auto-generate password</span>
+              <label className="toggle-switch">
+                <input
+                  type="checkbox"
+                  checked={autoGeneratePassword}
+                  onChange={() => setAutoGeneratePassword(!autoGeneratePassword)}
+                />
+                <span className="slider"></span>
+              </label>
+            </div>
+
+            {/* Password (conditional) */}
+            {!autoGeneratePassword && (
+              <div className="form-grid">
+                <div className="form-group">
+                  <label>Password</label>
+                  <input 
+                    type="password" 
+                    name="password"
+                    value={formData.password}
+                    onChange={handleInputChange}
+                    placeholder="Enter password" 
+                  />
+                </div>
+              </div>
+            )}
+
             <div className="permissions">
               <div className="checkbox-group">
-                <input type="checkbox" id="viewOrders" />
+                <input 
+                  type="checkbox" 
+                  id="viewOrders" 
+                  checked={permissions.isViewOrder}
+                  onChange={() => handlePermissionChange('isViewOrder')}
+                />
                 <label htmlFor="viewOrders">View Orders</label>
               </div>
               <div className="checkbox-group">
-                <input type="checkbox" id="manageInventory" />
+                <input 
+                  type="checkbox" 
+                  id="manageInventory" 
+                  checked={permissions.isManageInventory}
+                  onChange={() => handlePermissionChange('isManageInventory')}
+                />
                 <label htmlFor="manageInventory">Manage Inventory</label>
               </div>
               <div className="checkbox-group">
-                <input type="checkbox" id="approvePayments" />
+                <input 
+                  type="checkbox" 
+                  id="approvePayments" 
+                  checked={permissions.isPaymentApproval}
+                  onChange={() => handlePermissionChange('isPaymentApproval')}
+                />
                 <label htmlFor="approvePayments">Approve Payments</label>
               </div>
               <div className="checkbox-group">
-                <input type="checkbox" id="viewReports" />
+                <input 
+                  type="checkbox" 
+                  id="viewReports" 
+                  checked={permissions.isViewReports}
+                  onChange={() => handlePermissionChange('isViewReports')}
+                />
                 <label htmlFor="viewReports">View Reports</label>
               </div>
             </div>
@@ -238,19 +635,43 @@ const CreateEmployee = () => {
             <div className="form-grid">
               <div className="form-group">
                 <label>Joining Date</label>
-                <input type="text" placeholder="Enter Joining Date" />
+                <input 
+                  type="date" 
+                  name="joiningDate"
+                  value={formData.joiningDate}
+                  onChange={handleInputChange}
+                  placeholder="Enter Joining Date" 
+                />
               </div>
 
               <div className="form-group">
                 <label>Shift (Optional)</label>
-                <input type="text" placeholder="Enter Shift details" />
+                <input 
+                  type="text" 
+                  name="shift"
+                  value={formData.shift}
+                  onChange={handleInputChange}
+                  placeholder="Enter Shift details" 
+                />
               </div>
             </div>
 
             <div className="actions">
-              <button className="btn btn-save-add">Save & Add Another</button>
-              <button className="btn btn-save">Save Employee</button>
-              <button className="btn btn-cancel">Cancel</button>
+              <button 
+                className="btn btn-save-add" 
+                onClick={() => handleSaveEmployee(true)}
+                disabled={loading}
+              >
+                {loading ? 'Saving...' : 'Save & Add Another'}
+              </button>
+              <button 
+                className="btn btn-save" 
+                onClick={() => handleSaveEmployee(false)}
+                disabled={loading}
+              >
+                {loading ? 'Saving...' : 'Save Employee'}
+              </button>
+              <button className="btn btn-cancel" onClick={resetForm}>Cancel</button>
             </div>
           </div>
         )}

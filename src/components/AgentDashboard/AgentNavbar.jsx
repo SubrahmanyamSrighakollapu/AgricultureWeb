@@ -110,7 +110,7 @@ const AgentNavbar = () => {
       </div>
 
       {/* Custom Responsive Styles */}
-      <style jsx>{`
+      <style jsx="true">{`
         @media (max-width: 767.98px) {
           h1 {
             font-size: 1.5rem;
